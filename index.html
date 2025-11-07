@@ -220,6 +220,7 @@
             top: 0;
             left: 0;
             z-index: 0;
+            pointer-events: none;
         }
 
         /* Enhanced Hero Section with 3D Effects */
@@ -243,6 +244,7 @@
             top: 10%;
             left: -15%;
             filter: blur(2px);
+            z-index: 0;
         }
 
         .hero::after {
@@ -254,6 +256,7 @@
             bottom: 10%;
             right: -15%;
             filter: blur(2px);
+            z-index: 0;
         }
 
         @keyframes float3D {
@@ -277,8 +280,9 @@
             grid-template-columns: 1fr 1fr;
             gap: 5rem;
             align-items: center;
-            z-index: 1;
+            z-index: 2;
             width: 100%;
+            position: relative;
         }
 
         .hero-text h1 {
@@ -292,6 +296,8 @@
             animation: fadeInUpBounce 1s ease;
             font-weight: 900;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
         }
 
         .hero-text .hindi {
@@ -302,6 +308,8 @@
             margin-bottom: 1.5rem;
             font-weight: 600;
             animation: fadeInUpBounce 1s ease 0.2s both;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-text p {
@@ -310,6 +318,8 @@
             margin-bottom: 2.5rem;
             line-height: 1.8;
             animation: fadeInUpBounce 1s ease 0.4s both;
+            position: relative;
+            z-index: 2;
         }
 
         .cta-buttons {
@@ -317,6 +327,8 @@
             gap: 1.2rem;
             flex-wrap: wrap;
             animation: fadeInUpBounce 1s ease 0.6s both;
+            position: relative;
+            z-index: 2;
         }
 
         .btn {
@@ -398,6 +410,7 @@
             animation: fadeIn 1.5s ease;
             position: relative;
             perspective: 1000px;
+            z-index: 2;
         }
 
         .gallery-item {
@@ -409,6 +422,7 @@
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 15px 45px rgba(0,0,0,0.15);
             transform-style: preserve-3d;
+            z-index: 2;
         }
 
         .gallery-item::before {
@@ -428,21 +442,25 @@
         .gallery-item:nth-child(1):hover {
             transform: translateY(-20px) rotateY(-5deg) rotateX(5deg) scale(1.05);
             box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            z-index: 10;
         }
 
         .gallery-item:nth-child(2):hover {
             transform: translateY(-20px) rotateY(5deg) rotateX(5deg) scale(1.05);
             box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            z-index: 10;
         }
 
         .gallery-item:nth-child(3):hover {
             transform: translateY(-20px) rotateY(-5deg) rotateX(-5deg) scale(1.05);
             box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            z-index: 10;
         }
 
         .gallery-item:nth-child(4):hover {
             transform: translateY(-20px) rotateY(5deg) rotateX(-5deg) scale(1.05);
             box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            z-index: 10;
         }
 
         .gallery-item img {
@@ -450,6 +468,8 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s ease;
+            position: relative;
+            z-index: 0;
         }
 
         .gallery-item:hover img {
@@ -483,6 +503,7 @@
             animation: floatRandom3D 20s ease-in-out infinite;
             pointer-events: none;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+            z-index: 1;
         }
 
         @keyframes floatRandom3D {
@@ -2109,7 +2130,7 @@
         .product-image img,
         .gallery-item img,
         .instagram-post img {
-            opacity: 0;
+            opacity: 1;
             transition: opacity 0.3s ease;
         }
 
@@ -2127,7 +2148,7 @@
 
         /* Fallback for missing images */
         .product-image:not(:has(img.loaded)) {
-            background: var(--gradient-1);
+            background: linear-gradient(135deg, #FFE8F0, #E8F5FF);
             color: white;
             display: flex;
             align-items: center;
@@ -2140,7 +2161,7 @@
         }
 
         .gallery-item:not(:has(img.loaded)) {
-            background: var(--gradient-2);
+            background: linear-gradient(135deg, #FEC868, #FFA500);
             color: white;
             display: flex;
             align-items: center;
@@ -2149,7 +2170,7 @@
         }
 
         .instagram-post:not(:has(img.loaded)) {
-            background: var(--gradient-1);
+            background: linear-gradient(135deg, #FFE8F0, #E8F5FF);
             color: white;
             display: flex;
             align-items: center;
@@ -2202,6 +2223,7 @@
     </nav>
 
     <section class="hero" id="home">
+        <div id="particles-js"></div>
         <div class="floating-element" style="top: 20%; left: 10%;">🌸</div>
         <div class="floating-element" style="top: 60%; left: 5%; animation-delay: 2s;">🧸</div>
         <div class="floating-element" style="top: 30%; right: 8%; animation-delay: 4s;">👜</div>
@@ -2526,25 +2548,117 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
+                
+                // Initialize particles after page load
+                initParticles();
             }, 1000);
         });
+
+        // Particles Background
+        function initParticles() {
+            if (window.innerWidth > 968 && typeof particlesJS !== 'undefined') {
+                try {
+                    particlesJS('particles-js', {
+                        particles: {
+                            number: { 
+                                value: 60, 
+                                density: { 
+                                    enable: true, 
+                                    value_area: 800 
+                                } 
+                            },
+                            color: { 
+                                value: '#FF6B9D' 
+                            },
+                            shape: { 
+                                type: 'circle' 
+                            },
+                            opacity: { 
+                                value: 0.3, 
+                                random: true, 
+                                anim: { 
+                                    enable: true, 
+                                    speed: 1, 
+                                    opacity_min: 0.1, 
+                                    sync: false 
+                                } 
+                            },
+                            size: { 
+                                value: 3, 
+                                random: true, 
+                                anim: { 
+                                    enable: true, 
+                                    speed: 2, 
+                                    size_min: 0.1, 
+                                    sync: false 
+                                } 
+                            },
+                            line_linked: { 
+                                enable: true, 
+                                distance: 150, 
+                                color: '#FF6B9D', 
+                                opacity: 0.2, 
+                                width: 1 
+                            },
+                            move: { 
+                                enable: true, 
+                                speed: 1.5, 
+                                direction: 'none', 
+                                random: false, 
+                                straight: false, 
+                                out_mode: 'out', 
+                                bounce: false 
+                            }
+                        },
+                        interactivity: {
+                            detect_on: 'canvas',
+                            events: { 
+                                onhover: { 
+                                    enable: true, 
+                                    mode: 'repulse' 
+                                }, 
+                                onclick: { 
+                                    enable: true, 
+                                    mode: 'push' 
+                                }, 
+                                resize: true 
+                            },
+                            modes: { 
+                                repulse: { 
+                                    distance: 150, 
+                                    duration: 0.4 
+                                }, 
+                                push: { 
+                                    particles_nb: 4 
+                                } 
+                            }
+                        },
+                        retina_detect: true
+                    });
+                } catch (error) {
+                    console.log('Particles.js not loaded, skipping particle effects');
+                }
+            }
+        }
 
         // Custom Cursor
         const cursorDot = document.getElementById('cursorDot');
         const cursorOutline = document.getElementById('cursorOutline');
 
-        window.addEventListener('mousemove', (e) => {
-            cursorDot.style.left = e.clientX + 'px';
-            cursorDot.style.top = e.clientY + 'px';
-            
-            cursorOutline.style.left = e.clientX + 'px';
-            cursorOutline.style.top = e.clientY + 'px';
-        });
-
-        // Hide custom cursor on mobile
-        if (window.innerWidth <= 968) {
-            cursorDot.style.display = 'none';
-            cursorOutline.style.display = 'none';
+        if (window.innerWidth > 968) {
+            window.addEventListener('mousemove', (e) => {
+                if (cursorDot && cursorOutline) {
+                    cursorDot.style.left = e.clientX + 'px';
+                    cursorDot.style.top = e.clientY + 'px';
+                    
+                    cursorOutline.style.left = e.clientX + 'px';
+                    cursorOutline.style.top = e.clientY + 'px';
+                }
+            });
+        } else {
+            // Hide custom cursor on mobile
+            if (cursorDot) cursorDot.style.display = 'none';
+            if (cursorOutline) cursorOutline.style.display = 'none';
         }
 
         // Magnetic Effect on Why Cards
@@ -2558,26 +2672,38 @@
             });
         });
 
-        // Particles Background
-        if (window.innerWidth > 968) {
-            particlesJS('particles-js', {
-                particles: {
-                    number: { value: 80, density: { enable: true, value_area: 800 } },
-                    color: { value: '#FF6B9D' },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
-                    size: { value: 3, random: true, anim: { enable: true, speed: 2, size_min: 0.1, sync: false } },
-                    line_linked: { enable: true, distance: 150, color: '#FF6B9D', opacity: 0.4, width: 1 },
-                    move: { enable: true, speed: 2, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-                    modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
-                },
-                retina_detect: true
+        // Image Loading Handler - IMPROVED
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            
+            images.forEach(img => {
+                // Immediately show images if already loaded
+                if (img.complete && img.naturalHeight !== 0) {
+                    img.classList.add('loaded');
+                    img.style.opacity = '1';
+                } else {
+                    // Show image when it loads
+                    img.addEventListener('load', function() {
+                        this.classList.add('loaded');
+                        this.style.opacity = '1';
+                    });
+                    
+                    // Handle errors
+                    img.addEventListener('error', function() {
+                        this.classList.add('error');
+                        console.warn('Image failed to load:', this.src);
+                    });
+                    
+                    // Force show after short delay if still not loaded
+                    setTimeout(() => {
+                        if (!img.classList.contains('loaded') && !img.classList.contains('error')) {
+                            img.classList.add('loaded');
+                            img.style.opacity = '1';
+                        }
+                    }, 500);
+                }
             });
-        }
+        });
 
         // Enhanced AI Knowledge Base
         const aiKnowledge = {
@@ -2819,27 +2945,6 @@
                     }
                 });
             }
-        });
-
-        // Image Loading Handler
-        document.addEventListener('DOMContentLoaded', function() {
-            const images = document.querySelectorAll('img');
-            
-            images.forEach(img => {
-                // Check if image is already loaded
-                if (img.complete && img.naturalHeight !== 0) {
-                    img.classList.add('loaded');
-                } else {
-                    img.addEventListener('load', function() {
-                        this.classList.add('loaded');
-                    });
-                    
-                    img.addEventListener('error', function() {
-                        this.classList.add('error');
-                        console.warn('Image failed to load:', this.src);
-                    });
-                }
-            });
         });
 
         // Intersection Observer for scroll animations
