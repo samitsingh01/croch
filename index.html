@@ -808,21 +808,24 @@
 
         .contact-methods {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 3rem;
         }
 
         .contact-method {
             text-align: center;
-            padding: 2rem;
+            padding: 2rem 1.5rem;
             background: var(--cream);
             border-radius: 20px;
             transition: all 0.3s;
             cursor: pointer;
             text-decoration: none;
             color: inherit;
-            display: block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .contact-method:hover {
@@ -844,6 +847,8 @@
         .contact-method p {
             color: #666;
             font-size: 0.95rem;
+            word-break: break-word;
+            width: 100%;
         }
 
         .form-group {
@@ -943,11 +948,13 @@
         }
 
         .ai-chat {
-            position: absolute;
-            bottom: 95px;
-            right: 0;
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
             width: 420px;
+            max-width: calc(100vw - 60px);
             height: 600px;
+            max-height: calc(100vh - 140px);
             background: white;
             border-radius: 25px;
             box-shadow: 0 20px 70px rgba(0,0,0,0.25);
@@ -1247,15 +1254,84 @@
             }
 
             .contact-container {
-                padding: 2rem;
-                margin: 0 1rem;
+                padding: 2.5rem 2rem;
+                margin: 0 1.5rem;
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .contact-method {
+                padding: 1.8rem 1.5rem;
+                max-width: 100%;
+            }
+
+            .contact-method .icon {
+                font-size: 3rem;
+            }
+
+            .contact-method h3 {
+                font-size: 1.2rem;
+            }
+
+            .contact-method p {
+                font-size: 0.9rem;
             }
 
             .ai-chat {
-                width: 95vw;
-                right: 2.5vw;
-                left: 2.5vw;
+                position: fixed;
+                bottom: 90px;
+                right: 10px;
+                left: 10px;
+                width: auto;
+                max-width: none;
                 height: 70vh;
+                max-height: 500px;
+                border-radius: 20px;
+            }
+
+            .ai-header {
+                padding: 1.5rem;
+                font-size: 1rem;
+            }
+
+            .ai-messages {
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .ai-message {
+                padding: 1rem;
+                font-size: 0.95rem;
+                max-width: 80%;
+            }
+
+            .quick-replies {
+                padding: 0 1rem 0.8rem;
+                gap: 0.5rem;
+            }
+
+            .quick-reply {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .ai-input-area {
+                padding: 1rem;
+                gap: 0.5rem;
+            }
+
+            .ai-input {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+
+            .ai-send {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
             }
 
             .whatsapp-float,
@@ -1300,14 +1376,107 @@
                 gap: 1rem;
             }
 
-            .contact-methods {
-                grid-template-columns: 1fr;
+            .contact-container {
+                padding: 2rem 1.5rem;
+                margin: 0 1rem;
             }
 
-            .footer-content {
+            .contact-methods {
                 grid-template-columns: 1fr;
-                gap: 2rem;
-                text-align: center;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .contact-method {
+                padding: 1.5rem 1rem;
+            }
+
+            .contact-method .icon {
+                font-size: 2.8rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .contact-method h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .contact-method p {
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+
+            .ai-chat {
+                position: fixed;
+                bottom: 90px;
+                right: 10px;
+                left: 10px;
+                width: auto;
+                max-width: none;
+                height: 70vh;
+                max-height: 500px;
+                border-radius: 20px;
+            }
+
+            .ai-header {
+                padding: 1.5rem;
+                font-size: 1rem;
+            }
+
+            .ai-messages {
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .ai-message {
+                padding: 1rem;
+                font-size: 0.95rem;
+                max-width: 80%;
+            }
+
+            .quick-replies {
+                padding: 0 1rem 0.8rem;
+                gap: 0.5rem;
+            }
+
+            .quick-reply {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .ai-input-area {
+                padding: 1rem;
+                gap: 0.5rem;
+            }
+
+            .ai-input {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+
+            .ai-send {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            .whatsapp-float,
+            .ai-assistant {
+                bottom: 20px;
+            }
+
+            .whatsapp-float {
+                left: 20px;
+            }
+
+            .ai-assistant {
+                right: 20px;
+            }
+
+            .whatsapp-float a,
+            .ai-button {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
             }
         }
 
@@ -1377,18 +1546,64 @@
             }
 
             .ai-chat {
-                width: 98vw;
-                right: 1vw;
-                left: 1vw;
-                height: 75vh;
+                position: fixed;
                 bottom: 80px;
+                right: 0;
+                left: 0;
+                width: 100%;
+                height: 70vh;
+                max-height: 500px;
+                border-radius: 20px 20px 0 0;
+                margin: 0;
             }
 
-            .whatsapp-float a,
-            .ai-button {
-                width: 55px;
-                height: 55px;
-                font-size: 1.8rem;
+            .ai-header {
+                padding: 1.2rem;
+                font-size: 0.95rem;
+            }
+
+            .ai-close {
+                font-size: 1.3rem;
+            }
+
+            .ai-messages {
+                padding: 0.8rem;
+                gap: 0.8rem;
+            }
+
+            .ai-message {
+                padding: 0.9rem 1rem;
+                font-size: 0.9rem;
+                max-width: 85%;
+            }
+
+            .quick-replies {
+                padding: 0 0.8rem 0.6rem;
+                gap: 0.4rem;
+            }
+
+            .quick-reply {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.75rem;
+            }
+
+            .ai-input-area {
+                padding: 0.8rem;
+                gap: 0.5rem;
+            }
+
+            .ai-input {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.9rem;
+            }
+
+            .ai-send {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .ai-typing {
+                padding: 0.8rem;
             }
 
             .whatsapp-float {
@@ -1399,6 +1614,24 @@
             .ai-assistant {
                 right: 15px;
                 bottom: 15px;
+            }
+
+            .ai-button {
+                width: 55px;
+                height: 55px;
+                font-size: 1.8rem;
+            }
+
+            .ai-chat {
+                position: fixed;
+                bottom: 80px;
+                right: 0;
+                left: 0;
+                width: 100%;
+                height: 70vh;
+                max-height: 500px;
+                border-radius: 20px 20px 0 0;
+                margin: 0;
             }
         }
 
@@ -1414,6 +1647,49 @@
             .gallery-item {
                 max-width: 250px;
                 margin: 0 auto;
+            }
+
+            .ai-chat {
+                bottom: 75px;
+                height: 75vh;
+                max-height: 450px;
+            }
+
+            .ai-message {
+                font-size: 0.85rem;
+                padding: 0.8rem 0.9rem;
+                max-width: 90%;
+            }
+
+            .quick-reply {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.7rem;
+            }
+
+            .contact-container {
+                padding: 1.2rem 0.8rem;
+                margin: 0 0.3rem;
+            }
+
+            .contact-methods {
+                gap: 0.7rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .contact-method {
+                padding: 1.2rem 0.8rem;
+            }
+
+            .contact-method .icon {
+                font-size: 2.2rem;
+            }
+
+            .contact-method h3 {
+                font-size: 0.95rem;
+            }
+
+            .contact-method p {
+                font-size: 0.75rem;
             }
         }
 
@@ -1888,6 +2164,7 @@
         function toggleChat() {
             const chatBox = document.getElementById('aiChat');
             chatBox.classList.toggle('active');
+
             if (chatBox.classList.contains('active')) {
                 document.getElementById('aiInput').focus();
             }
@@ -2139,22 +2416,44 @@
             
             if (aiChat && aiChat.classList.contains('active')) {
                 if (!aiAssistant.contains(event.target)) {
-                    toggleChat();
+                    aiChat.classList.remove('active');
                 }
             }
         });
 
-        // Handle window resize
-        let resizeTimer;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function() {
-                // Close mobile menu if window is resized to desktop size
-                if (window.innerWidth > 968) {
-                    closeMenu();
-                }
-            }, 250);
+        // Prevent chat from closing when clicking inside
+        document.addEventListener('DOMContentLoaded', function() {
+            const aiChat = document.getElementById('aiChat');
+            if (aiChat) {
+                aiChat.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
         });
+
+        // Handle orientation change for mobile
+        window.addEventListener('orientationchange', function() {
+            const aiChat = document.getElementById('aiChat');
+            if (aiChat && aiChat.classList.contains('active')) {
+                // Recalculate chat dimensions after orientation change
+                setTimeout(function() {
+                    aiChat.style.maxHeight = 'calc(100vh - 140px)';
+                }, 200);
+            }
+        });
+
+        // Adjust chat height on mobile keyboard open
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', function() {
+                const aiChat = document.getElementById('aiChat');
+                if (aiChat && aiChat.classList.contains('active')) {
+                    const viewportHeight = window.visualViewport.height;
+                    if (window.innerWidth <= 480) {
+                        aiChat.style.height = Math.min(viewportHeight * 0.7, 500) + 'px';
+                    }
+                }
+            });
+        }
 
         // Console welcome message
         console.log('%c🧶 Welcome to Crochetiya! 🌸', 'color: #FF6B9D; font-size: 20px; font-weight: bold;');
