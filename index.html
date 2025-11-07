@@ -35,14 +35,14 @@
             background: var(--light);
         }
 
-        /* ===== CINEMATIC LOADING SCREEN - ENHANCED ===== */
+        /* ===== STUNNING LOADING SCREEN - WEBSITE THEMED ===== */
         .loader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, #1a0a14 0%, #0a0a0a 100%);
+            background: linear-gradient(135deg, #FFF5E9 0%, #FFE8F0 30%, #E8F5FF 60%, #FFF0F5 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -57,15 +57,33 @@
             width: 200%;
             height: 200%;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.15), transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(254, 200, 104, 0.15), transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(196, 69, 105, 0.1), transparent 50%);
-            animation: rotateGradient 15s linear infinite;
+                radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.2), transparent 35%),
+                radial-gradient(circle at 80% 70%, rgba(254, 200, 104, 0.2), transparent 35%),
+                radial-gradient(circle at 50% 50%, rgba(196, 69, 105, 0.15), transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(168, 230, 207, 0.15), transparent 35%);
+            animation: rotateGradient 20s linear infinite;
+        }
+
+        .loader::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 60% 20%, rgba(255, 107, 157, 0.08), transparent 50%),
+                radial-gradient(circle at 30% 60%, rgba(254, 200, 104, 0.08), transparent 50%);
+            animation: pulseBackground 8s ease-in-out infinite;
         }
 
         @keyframes rotateGradient {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes pulseBackground {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
         .loader.hidden {
@@ -99,7 +117,7 @@
         .loader-logo {
             font-family: 'Playfair Display', serif;
             font-size: 4.5rem;
-            background: linear-gradient(135deg, #FF6B9D 0%, #FEC868 25%, #C44569 50%, #FF6B9D 75%, #FEC868 100%);
+            background: linear-gradient(135deg, #FF6B9D 0%, #FEC868 25%, #C44569 50%, #FF6B9D 75%, #FFA500 100%);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -107,8 +125,7 @@
             animation: gradientFlow 3s ease infinite, logoFloat 2.5s ease-in-out infinite;
             font-weight: 900;
             letter-spacing: 3px;
-            filter: drop-shadow(0 0 40px rgba(255, 107, 157, 0.6));
-            text-shadow: 0 0 60px rgba(255, 107, 157, 0.4);
+            filter: drop-shadow(0 5px 15px rgba(255, 107, 157, 0.3));
         }
 
         @keyframes gradientFlow {
@@ -134,21 +151,21 @@
         .loader-ring:nth-child(1) {
             width: 220px;
             height: 220px;
-            border-color: rgba(255, 107, 157, 0.4);
+            border-color: rgba(255, 107, 157, 0.3);
             animation: ringPulse 2.5s ease-in-out infinite;
         }
 
         .loader-ring:nth-child(2) {
             width: 280px;
             height: 280px;
-            border-color: rgba(254, 200, 104, 0.3);
+            border-color: rgba(254, 200, 104, 0.25);
             animation: ringPulse 2.5s ease-in-out infinite 0.3s;
         }
 
         .loader-ring:nth-child(3) {
             width: 340px;
             height: 340px;
-            border-color: rgba(196, 69, 105, 0.2);
+            border-color: rgba(168, 230, 207, 0.2);
             animation: ringPulse 2.5s ease-in-out infinite 0.6s;
         }
 
@@ -159,37 +176,35 @@
             }
             50% {
                 transform: translate(-50%, -50%) scale(1.15) rotate(180deg);
-                opacity: 0.4;
+                opacity: 0.3;
             }
         }
 
         .loader-hindi {
             font-size: 2rem;
-            color: #FF6B9D;
+            background: linear-gradient(135deg, #FF6B9D, #C44569, #FF6B9D);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-top: -0.5rem;
             margin-bottom: 2.5rem;
             font-weight: 700;
-            animation: textGlow 2s ease-in-out infinite;
-            text-shadow: 0 0 25px rgba(255, 107, 157, 0.9),
-                         0 0 50px rgba(255, 107, 157, 0.5);
+            animation: textGlow 2s ease-in-out infinite, gradientFlow 3s ease infinite;
             letter-spacing: 4px;
+            filter: drop-shadow(0 3px 8px rgba(255, 107, 157, 0.2));
         }
 
         @keyframes textGlow {
             0%, 100% {
-                text-shadow: 0 0 25px rgba(255, 107, 157, 0.9),
-                             0 0 50px rgba(255, 107, 157, 0.5);
                 transform: scale(1);
             }
             50% {
-                text-shadow: 0 0 35px rgba(255, 107, 157, 1),
-                             0 0 70px rgba(255, 107, 157, 0.7),
-                             0 0 100px rgba(255, 107, 157, 0.4);
                 transform: scale(1.02);
             }
         }
 
-        /* FIXED: Properly Aligned Knitting Needles & Yarn */
+        /* Beautiful Knitting Needles & Yarn */
         .loader-needles {
             position: relative;
             width: 180px;
@@ -198,16 +213,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            filter: drop-shadow(0 10px 25px rgba(255, 107, 157, 0.15));
         }
 
         .needle {
             position: absolute;
             width: 6px;
             height: 120px;
-            background: linear-gradient(to bottom, #F0F0F0 0%, #BDBDBD 50%, #9E9E9E 100%);
+            background: linear-gradient(to bottom, 
+                #E8E8E8 0%, 
+                #D0D0D0 30%, 
+                #B8B8B8 70%, 
+                #A0A0A0 100%);
             border-radius: 3px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3),
-                        inset -2px 0 4px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.5),
+                inset -2px 0 4px rgba(0, 0, 0, 0.2),
+                2px 0 8px rgba(0, 0, 0, 0.1);
         }
 
         .needle::before {
@@ -218,11 +240,13 @@
             transform: translateX(-50%);
             width: 14px;
             height: 14px;
-            background: radial-gradient(circle, #FFD700 0%, #FFA500 70%, #FF8C00 100%);
+            background: radial-gradient(circle, #FFD700 0%, #FDB931 40%, #F7931E 100%);
             border-radius: 50%;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8),
-                        0 0 25px rgba(255, 165, 0, 0.4),
-                        inset -3px -3px 6px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 0 15px rgba(255, 215, 0, 0.6),
+                0 0 25px rgba(255, 165, 0, 0.3),
+                inset -3px -3px 6px rgba(0, 0, 0, 0.2),
+                0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         .needle::after {
@@ -233,9 +257,9 @@
             transform: translateX(-50%);
             width: 10px;
             height: 10px;
-            background: linear-gradient(135deg, #757575, #616161);
+            background: linear-gradient(135deg, #888888, #666666);
             border-radius: 50%;
-            box-shadow: inset -2px -2px 3px rgba(0, 0, 0, 0.4);
+            box-shadow: inset -2px -2px 3px rgba(0, 0, 0, 0.3);
         }
 
         .needle-left {
@@ -272,7 +296,7 @@
             }
         }
 
-        /* Yarn Ball - Centered between needles */
+        /* Beautiful Yarn Ball */
         .yarn-ball {
             position: absolute;
             top: 50%;
@@ -280,12 +304,18 @@
             transform: translate(-50%, -50%);
             width: 75px;
             height: 75px;
-            background: linear-gradient(135deg, #FF6B9D 0%, #C44569 50%, #FF6B9D 100%);
+            background: linear-gradient(135deg, 
+                #FF6B9D 0%, 
+                #FF85B0 25%, 
+                #C44569 50%, 
+                #FF6B9D 75%, 
+                #FF85B0 100%);
             border-radius: 50%;
-            box-shadow: 0 0 35px rgba(255, 107, 157, 0.7),
-                        0 0 60px rgba(255, 107, 157, 0.4),
-                        inset -15px -15px 25px rgba(0, 0, 0, 0.3),
-                        inset 10px 10px 20px rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 0 30px rgba(255, 107, 157, 0.5),
+                0 0 50px rgba(255, 107, 157, 0.3),
+                inset -15px -15px 25px rgba(196, 69, 105, 0.4),
+                inset 10px 10px 20px rgba(255, 133, 176, 0.3);
             animation: yarnBounce 1.2s ease-in-out infinite;
             z-index: 5;
         }
@@ -298,7 +328,7 @@
             transform: translate(-50%, -50%);
             width: 55px;
             height: 55px;
-            border: 3px dashed rgba(255, 255, 255, 0.4);
+            border: 3px dashed rgba(255, 255, 255, 0.5);
             border-radius: 50%;
             animation: yarnRotate 4s linear infinite;
         }
@@ -319,15 +349,17 @@
         @keyframes yarnBounce {
             0%, 100% { 
                 transform: translate(-50%, -50%) scale(1) rotate(0deg);
-                box-shadow: 0 0 35px rgba(255, 107, 157, 0.7),
-                            0 0 60px rgba(255, 107, 157, 0.4),
-                            inset -15px -15px 25px rgba(0, 0, 0, 0.3);
+                box-shadow: 
+                    0 0 30px rgba(255, 107, 157, 0.5),
+                    0 0 50px rgba(255, 107, 157, 0.3),
+                    inset -15px -15px 25px rgba(196, 69, 105, 0.4);
             }
             50% { 
                 transform: translate(-50%, -50%) scale(1.08) rotate(180deg);
-                box-shadow: 0 0 50px rgba(255, 107, 157, 0.9),
-                            0 0 80px rgba(255, 107, 157, 0.6),
-                            inset -15px -15px 25px rgba(0, 0, 0, 0.3);
+                box-shadow: 
+                    0 0 40px rgba(255, 107, 157, 0.7),
+                    0 0 70px rgba(255, 107, 157, 0.4),
+                    inset -15px -15px 25px rgba(196, 69, 105, 0.4);
             }
         }
 
@@ -336,17 +368,21 @@
             to { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        /* Yarn thread connecting to ball */
+        /* Yarn thread */
         .yarn-thread {
             position: absolute;
             top: 50%;
             left: 50%;
             width: 3px;
             height: 30px;
-            background: linear-gradient(to bottom, transparent, #FF6B9D);
+            background: linear-gradient(to bottom, 
+                rgba(255, 107, 157, 0), 
+                rgba(255, 107, 157, 0.6), 
+                rgba(255, 107, 157, 0.9));
             transform: translate(-50%, -100%);
-            opacity: 0.6;
+            opacity: 0.7;
             animation: threadWave 1.2s ease-in-out infinite;
+            filter: drop-shadow(0 0 3px rgba(255, 107, 157, 0.4));
         }
 
         @keyframes threadWave {
@@ -356,35 +392,47 @@
 
         /* Crafting Text */
         .loader-crafting {
-            color: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(135deg, #FF6B9D, #FEC868, #C44569, #FF6B9D);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-size: 1.3rem;
             font-weight: 700;
             letter-spacing: 6px;
             margin-bottom: 1.8rem;
-            animation: fadeInOut 1.2s ease-in-out infinite;
+            animation: fadeInOut 1.2s ease-in-out infinite, gradientFlow 3s ease infinite;
             text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(255, 107, 157, 0.6);
+            filter: drop-shadow(0 2px 8px rgba(255, 107, 157, 0.2));
         }
 
         .loader-progress {
             width: 280px;
             height: 5px;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 107, 157, 0.1);
             border-radius: 10px;
             overflow: hidden;
             margin: 0 auto;
-            box-shadow: 0 0 25px rgba(255, 107, 157, 0.3),
-                        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 0 15px rgba(255, 107, 157, 0.2),
+                inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 107, 157, 0.2);
         }
 
         .loader-progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #FF6B9D 0%, #FEC868 50%, #C44569 100%);
-            background-size: 200% 100%;
+            background: linear-gradient(90deg, 
+                #FF6B9D 0%, 
+                #FEC868 25%, 
+                #C44569 50%, 
+                #FF6B9D 75%, 
+                #FEC868 100%);
+            background-size: 300% 100%;
             border-radius: 10px;
             animation: progressFlow 1.2s ease-in-out infinite, progressFill 1.2s ease-out forwards;
-            box-shadow: 0 0 25px rgba(255, 107, 157, 0.9),
-                        0 0 40px rgba(255, 107, 157, 0.6);
+            box-shadow: 
+                0 0 20px rgba(255, 107, 157, 0.6),
+                0 0 35px rgba(255, 107, 157, 0.3);
         }
 
         @keyframes progressFlow {
@@ -398,7 +446,7 @@
         }
 
         @keyframes fadeInOut {
-            0%, 100% { opacity: 0.5; }
+            0%, 100% { opacity: 0.6; }
             50% { opacity: 1; }
         }
 
@@ -411,7 +459,7 @@
             pointer-events: none;
             opacity: 0;
             animation: particleFloat 2.5s ease-in-out infinite;
-            box-shadow: 0 0 15px rgba(255, 107, 157, 0.9);
+            box-shadow: 0 0 12px rgba(255, 107, 157, 0.8);
         }
 
         @keyframes particleFloat {
@@ -430,23 +478,29 @@
         }
 
         .loader-tagline {
-            color: rgba(255, 255, 255, 0.7);
+            background: linear-gradient(135deg, #FF6B9D, #C44569);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-size: 1.05rem;
             margin-top: 1.8rem;
             font-style: italic;
-            animation: fadeInOut 2.5s ease-in-out infinite;
+            animation: fadeInOut 2.5s ease-in-out infinite, gradientFlow 3s ease infinite;
             letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(255, 107, 157, 0.4);
+            font-weight: 600;
         }
 
-        /* Sparkles around yarn ball */
+        /* Beautiful Sparkles */
         .sparkle {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 5px;
+            height: 5px;
             background: #FEC868;
             border-radius: 50%;
-            box-shadow: 0 0 10px #FEC868;
+            box-shadow: 
+                0 0 15px #FEC868,
+                0 0 25px rgba(254, 200, 104, 0.5);
             animation: sparkleAnim 1.5s ease-in-out infinite;
         }
 
@@ -2211,7 +2265,7 @@
     </style>
 </head>
 <body>
-    <!-- CINEMATIC LOADING SCREEN - ENHANCED -->
+    <!-- STUNNING LOADING SCREEN -->
     <div class="loader" id="loader">
         <div class="loader-content">
             <div class="loader-logo-container">
