@@ -319,6 +319,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
         }
 
         .gallery-item-overlay {
@@ -435,11 +440,18 @@
             overflow: hidden;
         }
 
-        .product-image::after {
-            content: '';
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.3));
+            top: 0;
+            left: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
         }
 
         .product-info {
@@ -520,6 +532,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .instagram-post::after {
@@ -1126,31 +1141,74 @@
             transform: translateY(-2px);
         }
 
+        @media (max-width: 1200px) {
+            .hero-content {
+                gap: 3rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 4rem;
+            }
+            
+            .products-grid,
+            .instagram-grid,
+            .why-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
         @media (max-width: 968px) {
+            nav {
+                padding: 1rem 3%;
+            }
+
+            .hero {
+                padding: 6rem 3% 3rem;
+            }
+
             .hero-content {
                 grid-template-columns: 1fr;
                 text-align: center;
-                gap: 3rem;
+                gap: 2.5rem;
             }
 
             .hero-text h1 {
-                font-size: 3.5rem;
+                font-size: 3.2rem;
             }
 
             .hero-text .hindi {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             .hero-text p {
-                font-size: 1.1rem;
+                font-size: 1rem;
+            }
+
+            .hero-gallery {
+                max-width: 400px;
+                margin: 0 auto;
             }
 
             .cta-buttons {
                 justify-content: center;
+                gap: 1rem;
+            }
+
+            .btn {
+                padding: 1rem 2rem;
+                font-size: 0.95rem;
+            }
+
+            section {
+                padding: 4rem 3%;
             }
 
             .section-header h2 {
                 font-size: 2.5rem;
+            }
+
+            .section-header p {
+                font-size: 1rem;
             }
 
             nav ul {
@@ -1183,6 +1241,16 @@
                 display: flex;
             }
 
+            .whatsapp-nav {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .contact-container {
+                padding: 2rem;
+                margin: 0 1rem;
+            }
+
             .ai-chat {
                 width: 95vw;
                 right: 2.5vw;
@@ -1190,29 +1258,227 @@
                 height: 70vh;
             }
 
-            .contact-container {
-                padding: 2rem;
+            .whatsapp-float,
+            .ai-assistant {
+                bottom: 20px;
+            }
+
+            .whatsapp-float {
+                left: 20px;
+            }
+
+            .ai-assistant {
+                right: 20px;
+            }
+
+            .whatsapp-float a,
+            .ai-button {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 640px) {
             .hero-text h1 {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
             }
 
-            .logo {
-                font-size: 1.4rem;
-            }
-
-            .btn {
-                padding: 0.9rem 1.8rem;
-                font-size: 0.95rem;
+            .hero-text .hindi {
+                font-size: 1.5rem;
             }
 
             .products-grid,
             .instagram-grid,
             .why-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .hero-gallery {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0.8rem 4%;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .hero {
+                padding: 5rem 4% 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+                line-height: 1.1;
+            }
+
+            .hero-text .hindi {
+                font-size: 1.3rem;
+            }
+
+            .hero-text p {
+                font-size: 0.95rem;
+                margin-bottom: 2rem;
+            }
+
+            .btn {
+                padding: 0.9rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            section {
+                padding: 3rem 4%;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .section-header {
+                margin-bottom: 2.5rem;
+            }
+
+            .product-card,
+            .why-card {
+                margin: 0 auto;
+                max-width: 320px;
+            }
+
+            .contact-container {
+                padding: 1.5rem;
+                margin: 0 0.5rem;
+            }
+
+            .ai-chat {
+                width: 98vw;
+                right: 1vw;
+                left: 1vw;
+                height: 75vh;
+                bottom: 80px;
+            }
+
+            .whatsapp-float a,
+            .ai-button {
+                width: 55px;
+                height: 55px;
+                font-size: 1.8rem;
+            }
+
+            .whatsapp-float {
+                left: 15px;
+                bottom: 15px;
+            }
+
+            .ai-assistant {
+                right: 15px;
+                bottom: 15px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item {
+                max-width: 250px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Image loading and error handling */
+        .product-image img,
+        .gallery-item img,
+        .instagram-post img {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-image img.loaded,
+        .gallery-item img.loaded,
+        .instagram-post img.loaded {
+            opacity: 1;
+        }
+
+        .product-image img.error,
+        .gallery-item img.error,
+        .instagram-post img.error {
+            display: none;
+        }
+
+        /* Fallback for missing images */
+        .product-image:not(:has(img.loaded)) {
+            background: var(--gradient-1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .product-image:not(:has(img.loaded))::before {
+            content: '🧶';
+        }
+
+        .gallery-item:not(:has(img.loaded)) {
+            background: var(--gradient-2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .instagram-post:not(:has(img.loaded)) {
+            background: var(--gradient-1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        /* Enhanced touch targets for mobile */
+        @media (max-width: 768px) {
+            .btn, .contact-method, .quick-reply {
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+
+            .gallery-item, .product-card, .instagram-post {
+                cursor: pointer;
+                touch-action: manipulation;
             }
         }
     </style>
@@ -1555,6 +1821,7 @@
     </div>
 
     <script>
+        // Enhanced AI Knowledge Base
         const aiKnowledge = {
             greetings: {
                 patterns: ['hi', 'hello', 'hey', 'namaste', 'namaskar', 'good morning', 'good evening'],
@@ -1573,144 +1840,79 @@
                 ]
             },
             flowers: {
-                patterns: ['flower', 'bloom', 'floral', 'rose', 'bouquet', 'decoration'],
+                patterns: ['flower', 'bloom', 'floral', 'rose', 'bouquet', 'decoration', 'phool'],
                 response: "Our wool flowers are absolutely gorgeous! 🌺🌸 They're eternal blooms that never fade or wilt. Perfect for:\n\n✨ Home decoration (living room, bedroom)\n🎁 Gifts for loved ones\n💐 Wedding decorations\n🌸 Office desk charm\n\nAvailable in vibrant colors like red, pink, yellow, purple, and more! Each flower is hand-crafted with premium wool. Prices start from affordable rates. Want to see some designs? Check our Instagram @crochetiya or WhatsApp us at +91 9013463956! 📸"
             },
             toys: {
-                patterns: ['toy', 'teddy', 'bear', 'doll', 'kids', 'children', 'baby', 'stuffed'],
-                response: "Our handmade wool toys are super adorable! 🧸💕 Made with:\n\n✅ 100% child-safe materials\n✅ Soft premium wool\n✅ Love and care in every stitch\n\nPerfect for:\n👶 Babies (soft & safe)\n🎁 Birthday gifts\n🏠 Room decoration\n💝 Baby showers\n\nWe make teddies, rabbits, dolls, and custom characters! Each toy is unique. Prices vary by size. Message us on WhatsApp (+91 9013463956) with your requirements! 🌟"
-            },
-            keychains: {
-                patterns: ['keychain', 'key', 'accessory', 'small', 'pocket'],
-                response: "Our wool keychains are cute, colorful & practical! 🔑✨\n\nPerfect for:\n🎒 Bag accessories\n🔑 Key holders\n🎁 Party favors\n💝 Small gifts\n\nDesigns include: flowers, fruits, animals, emoji faces, and more! Super affordable and customizable. Bulk orders welcome for events! Want to order? WhatsApp us: +91 9013463956 📱"
+                patterns: ['toy', 'teddy', 'bear', 'doll', 'kids', 'children', 'baby', 'stuffed', 'khilona'],
+                response: "Our handmade wool toys are super adorable! 🧸💕 Made with:\n\n✅ 100% child-safe materials\n✅ Soft premium wool\n✅ Love and care in every stitch\n\nPerfect for:\n👶 Babies (soft & safe)\n🎁 Birthday gifts\n🏠 Room decoration\n💝 Baby showers\n\nWe make teddies, rabbits, dolls, and custom characters! Each toy is unique. Prices vary by size. Message us on WhatsApp +91 9013463956 to discuss your ideas! 💬"
             },
             bags: {
-                patterns: ['bag', 'purse', 'tote', 'handbag', 'pouch', 'shopping'],
-                response: "Our crochet bags are stylish, sturdy & eco-friendly! 👜💚\n\nFeatures:\n✨ Handmade with durable wool\n🌿 Sustainable & eco-conscious\n🎨 Available in many colors\n💪 Strong & long-lasting\n\nPerfect for:\n🛍️ Shopping trips\n🏖️ Beach outings\n👜 Daily use\n🎁 Thoughtful gifts\n\nSizes: Small, Medium, Large. Custom colors available! Contact us on WhatsApp: +91 9013463956 for designs and pricing! 📸"
+                patterns: ['bag', 'tote', 'purse', 'handbag', 'carry', 'shopping'],
+                response: "Our crochet bags are stylish and eco-friendly! 👜🌿\n\n💚 100% sustainable wool\n💪 Strong and durable\n🎨 Custom colors available\n✨ Unique handmade designs\n\nPerfect for:\n🛍️ Shopping trips\n📚 Book carriers\n🏖️ Beach outings\n🎁 Thoughtful gifts\n\nEach bag is carefully crafted to last. Prices depend on size and design complexity. Contact us on WhatsApp +91 9013463956 for custom orders!"
+            },
+            keychains: {
+                patterns: ['keychain', 'key ring', 'key holder', 'charm', 'accessories'],
+                response: "Our wool keychains are cute and colorful! 🔑✨\n\n🎨 Available in all colors\n💝 Perfect as gifts or party favors\n🎉 Great for return gifts\n✨ Lightweight and durable\n\nPopular designs:\n🐻 Animals (bear, bunny, cat)\n🌸 Flowers\n💗 Hearts\n🌈 Custom characters\n\nAffordable prices, bulk orders welcome! WhatsApp us at +91 9013463956 to place your order! 📱"
+            },
+            pricing: {
+                patterns: ['price', 'cost', 'how much', 'rate', 'kitna', 'kitne', 'paisa'],
+                response: "Great question! 💰 Our pricing varies based on:\n\n📏 Size and complexity\n🎨 Design details\n🧶 Materials used\n⏱️ Time required\n\nGeneral price ranges:\n🌸 Wool Flowers: Starting from ₹50-300\n🧸 Toys: Starting from ₹200-800\n👜 Bags: Starting from ₹300-1500\n🔑 Keychains: Starting from ₹30-150\n\n💬 For exact pricing, please WhatsApp us your requirements at +91 9013463956. We'll give you a fair quote! Bulk orders get special discounts! 🎉"
             },
             custom: {
-                patterns: ['custom', 'personalize', 'specific', 'design', 'own', 'special', 'make', 'create'],
-                response: "YES! We LOVE creating custom pieces! 🎨✨\n\nYou can customize:\n🎨 Colors (your choice!)\n📏 Size (small to large)\n🌟 Design (your idea!)\n💝 Special messages/names\n\nCustom options for:\n🌸 Flowers (specific types)\n🧸 Toys (custom characters)\n👜 Bags (your style)\n🔑 Keychains (unique designs)\n\nJust share your idea, and we'll make it real! Takes 3-7 days depending on complexity. WhatsApp us: +91 9013463956 with your vision! 💕"
-            },
-            price: {
-                patterns: ['price', 'cost', 'how much', 'expensive', 'cheap', 'affordable', 'rate'],
-                response: "Great question! 💰 Our prices are very reasonable for handmade quality:\n\n🌸 Flowers: Starting from ₹50-200\n🧸 Toys: ₹200-800 (depends on size)\n🔑 Keychains: ₹30-100\n👜 Bags: ₹300-1000 (depends on size)\n🎨 Custom: Varies by complexity\n\nBulk orders get discounts! 🎉 Remember, these are handmade with love, not mass-produced. Each piece is unique! For exact pricing and to see designs, WhatsApp us: +91 9013463956 📱"
+                patterns: ['custom', 'personalize', 'special', 'design', 'order', 'make', 'banao'],
+                response: "Yes! We LOVE custom orders! 🎨✨\n\nYou can customize:\n🎨 Colors (any shade you want!)\n📏 Size (small to large)\n💡 Design (your own ideas)\n🎁 Gift packaging\n✍️ Personalized touches\n\nHow it works:\n1️⃣ Share your idea with us\n2️⃣ We discuss design & pricing\n3️⃣ We create it with love\n4️⃣ You receive your unique piece!\n\n⏱️ Delivery time: 3-7 days (depending on complexity)\n\nReady to create something special? WhatsApp us at +91 9013463956! Let's bring your vision to life! 💕"
             },
             delivery: {
-                patterns: ['deliver', 'shipping', 'ship', 'send', 'courier', 'india post'],
-                response: "We ship all over India! 📦✈️\n\n🚚 Delivery Options:\n✅ India Post (affordable)\n✅ Professional courier services\n✅ Local delivery (if nearby)\n\n⏱️ Timeline:\n• Within city: 2-4 days\n• Within state: 3-5 days\n• Other states: 5-10 days\n\nShipping charges depend on location and order size. We pack everything securely with love! 💝 Contact us on WhatsApp (+91 9013463956) for exact shipping details!"
-            },
-            order: {
-                patterns: ['order', 'buy', 'purchase', 'how to order', 'want to order'],
-                response: "Ordering is super easy! 🛍️✨\n\n📱 3 Simple Steps:\n1️⃣ Message us on WhatsApp: +91 9013463956\n2️⃣ Tell us what you want (color, size, design)\n3️⃣ We'll share price, photos & confirm!\n\n💳 Payment:\n• UPI / GPay / PhonePe\n• Bank Transfer\n• Cash (for local delivery)\n\nWe'll start crafting after payment confirmation. Ready to order? Click the WhatsApp button! 💬"
-            },
-            quality: {
-                patterns: ['quality', 'material', 'wool', 'durable', 'last', 'safe'],
-                response: "Quality is our priority! ✨🧶\n\n💯 What makes us special:\n✅ Premium quality wool\n✅ Child-safe materials (for toys)\n✅ Strong, durable construction\n✅ Colorfast & long-lasting\n✅ Handmade with precision\n✅ Each piece checked carefully\n\n🌿 Eco-friendly & sustainable! Our products are made to last years, not months. We take pride in every creation! Questions? WhatsApp: +91 9013463956 💕"
+                patterns: ['deliver', 'shipping', 'send', 'courier', 'bhejoge', 'milega'],
+                response: "We deliver all over India! 🚚📦\n\n✅ Safe packaging\n✅ Fast shipping\n✅ Tracking provided\n✅ Delivery to your doorstep\n\n📍 Shipping charges: Depends on location\n⏱️ Delivery time: 3-7 business days\n🌏 International shipping: Available on request\n\n💬 To confirm delivery details and charges for your location, please WhatsApp us at +91 9013463956 with your pincode!"
             },
             care: {
-                patterns: ['care', 'wash', 'clean', 'maintain', 'maintenance'],
-                response: "Taking care of wool products is easy! 🧼✨\n\n🌸 For Flowers & Decorative Items:\n• Dust gently with soft cloth\n• Keep away from moisture\n• No washing needed!\n\n🧸 For Toys:\n• Spot clean with damp cloth\n• Mild soap if needed\n• Air dry completely\n• No machine wash\n\n👜 For Bags:\n• Wipe with damp cloth\n• Air dry if wet\n• Store in cool, dry place\n\nProper care = lasts forever! 💝"
-            },
-            instagram: {
-                patterns: ['instagram', 'insta', 'photos', 'pictures', 'gallery', 'images'],
-                response: "Yes! Check out our Instagram for beautiful photos! 📸✨\n\n👉 Follow us: @crochetiya\nhttps://www.instagram.com/crochetiya/\n\nYou'll see:\n🌸 Latest designs\n🎨 Custom creations\n💝 Customer reviews\n🎬 Making process videos\n🌟 Daily inspiration\n\nFollow us for updates and giveaways! Don't forget to DM us there too! 💕"
+                patterns: ['care', 'wash', 'clean', 'maintain', 'kaise rakhein'],
+                response: "Taking care of your wool products is easy! 🧼✨\n\n🌸 Wool Flowers:\n• Dust gently with soft cloth\n• Keep away from water\n• Store in dry place\n\n🧸 Toys:\n• Gentle hand wash if needed\n• Air dry completely\n• Avoid harsh chemicals\n\n👜 Bags:\n• Spot clean with damp cloth\n• Air dry naturally\n• Store in cool, dry place\n\n💡 Pro tip: Wool items last years with proper care! They're durable and eco-friendly. Any specific care questions? Feel free to ask! 💕"
             },
             contact: {
-                patterns: ['contact', 'reach', 'get in touch', 'phone', 'email', 'whatsapp'],
-                response: "We'd love to hear from you! 💕\n\n📞 Contact Us:\n💬 WhatsApp: +91 9013463956 (Best & Fastest!)\n📧 Email: anuanushkasharma3613@gmail.com\n📸 Instagram: @crochetiya\n\nWhatsApp is quickest for orders and queries! We usually respond within hours. Looking forward to creating something special for you! 🌸✨"
-            },
-            location: {
-                patterns: ['where', 'location', 'based', 'city', 'from'],
-                response: "We're based in India! 🇮🇳💕\n\nWe ship all across India to your doorstep! Whether you're in Mumbai, Delhi, Bangalore, Chennai, or a small town - we deliver everywhere! 📦\n\nLocal pickup available if you're nearby. Contact us on WhatsApp (+91 9013463956) to know more! 🌟"
-            },
-            time: {
-                patterns: ['how long', 'time', 'days', 'when', 'ready', 'wait'],
-                response: "Great question! ⏰✨\n\n🎨 Making Time:\n• Simple items: 1-3 days\n• Medium complexity: 3-5 days\n• Complex/Custom: 5-10 days\n\n📦 Delivery: Add 3-10 days (depends on location)\n\n🚀 Rush orders? Let us know! We'll try our best to accommodate. Remember, good things take time, but we work fast! 💕\n\nWhatsApp us for specific timeline: +91 9013463956"
-            },
-            gift: {
-                patterns: ['gift', 'present', 'surprise', 'birthday', 'anniversary', 'wedding'],
-                response: "Perfect gift idea! 🎁💕\n\n🌟 Why our products make great gifts:\n✨ Unique & handmade\n💝 Personal & thoughtful\n🎀 Beautiful packaging\n💌 Custom messages possible\n🌸 Suitable for all ages\n\n🎉 Occasions:\n• Birthdays\n• Anniversaries\n• Weddings\n• Baby showers\n• Housewarming\n• Just because! 💕\n\nWe can create gift sets too! WhatsApp: +91 9013463956 🌸"
-            },
-            colors: {
-                patterns: ['color', 'colour', 'shade', 'available colors'],
-                response: "We have a rainbow of colors! 🌈✨\n\n🎨 Popular Colors:\n❤️ Red, Pink, Hot Pink\n💙 Blue, Sky Blue, Navy\n💚 Green, Mint, Olive\n💛 Yellow, Golden, Cream\n🧡 Orange, Peach, Coral\n💜 Purple, Lavender, Violet\n🤍 White, Beige, Brown\n🖤 Black, Grey\n\nAnd many more shades! Custom color matching available. Just send us a photo of the color you want! WhatsApp: +91 9013463956 🎨"
+                patterns: ['contact', 'reach', 'call', 'message', 'whatsapp', 'email', 'sampark'],
+                response: "I'm so glad you want to connect! 📱💕\n\nContact us here:\n\n📞 WhatsApp: +91 9013463956 (Quick response!)\n✉️ Email: anuanushkasharma3613@gmail.com\n📸 Instagram: @crochetiya (See our latest work!)\n\n💬 Best way: WhatsApp us! We usually respond within a few hours. We're excited to hear from you! 🌸"
             },
             default: {
-                response: "That's a great question! 😊 I want to give you the best answer. Could you please be more specific? Or you can:\n\n💬 WhatsApp us: +91 9013463956\n📧 Email: anuanushkasharma3613@gmail.com\n📸 DM on Instagram: @crochetiya\n\nWe're here to help! 💕✨"
+                responses: [
+                    "That's a great question! 🤔 For detailed information, I'd recommend WhatsApp us at +91 9013463956. Our team will be happy to help you with specific details! 💕",
+                    "I want to give you the best answer! 😊 Could you WhatsApp us at +91 9013463956? We can discuss this in detail and help you better! 🌸",
+                    "Great question! For the most accurate information about this, please reach out to us on WhatsApp at +91 9013463956. We're here to help! ✨"
+                ]
             }
         };
 
-        function getAIResponse(message) {
-            const msg = message.toLowerCase();
-            
-            for (const category in aiKnowledge) {
-                const data = aiKnowledge[category];
-                if (data.patterns) {
-                    for (const pattern of data.patterns) {
-                        if (msg.includes(pattern)) {
-                            if (data.responses) {
-                                return data.responses[Math.floor(Math.random() * data.responses.length)];
-                            }
-                            return data.response;
-                        }
-                    }
-                }
-            }
-            
-            return aiKnowledge.default.response;
-        }
-
+        // AI Chat Functions
         function toggleChat() {
-            const chat = document.getElementById('aiChat');
-            chat.classList.toggle('active');
-        }
-
-        function addMessage(message, isBot) {
-            const messagesDiv = document.getElementById('aiMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `ai-message ${isBot ? 'bot' : 'user'}`;
-            messageDiv.textContent = message;
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
-
-        function showTyping() {
-            document.getElementById('aiTyping').classList.add('active');
-            document.getElementById('aiMessages').scrollTop = document.getElementById('aiMessages').scrollHeight;
-        }
-
-        function hideTyping() {
-            document.getElementById('aiTyping').classList.remove('active');
+            const chatBox = document.getElementById('aiChat');
+            chatBox.classList.toggle('active');
+            if (chatBox.classList.contains('active')) {
+                document.getElementById('aiInput').focus();
+            }
         }
 
         function sendMessage() {
             const input = document.getElementById('aiInput');
             const message = input.value.trim();
             
-            if (message === '') return;
+            if (!message) return;
             
-            addMessage(message, false);
+            addMessage(message, 'user');
             input.value = '';
             
             showTyping();
-            
             setTimeout(() => {
-                hideTyping();
                 const response = getAIResponse(message);
-                addMessage(response, true);
-            }, 1500);
+                hideTyping();
+                addMessage(response, 'bot');
+            }, 1000 + Math.random() * 1000);
         }
 
         function sendQuickReply(message) {
-            addMessage(message, false);
-            showTyping();
-            
-            setTimeout(() => {
-                hideTyping();
-                const response = getAIResponse(message);
-                addMessage(response, true);
-            }, 1500);
+            document.getElementById('aiInput').value = message;
+            sendMessage();
         }
 
         function handleKeyPress(event) {
@@ -1719,80 +1921,267 @@
             }
         }
 
+        function addMessage(text, sender) {
+            const messagesContainer = document.getElementById('aiMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `ai-message ${sender}`;
+            messageDiv.textContent = text;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTyping() {
+            document.getElementById('aiTyping').classList.add('active');
+            const messages = document.getElementById('aiMessages');
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function hideTyping() {
+            document.getElementById('aiTyping').classList.remove('active');
+        }
+
+        function getAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            for (const [category, data] of Object.entries(aiKnowledge)) {
+                if (category === 'default') continue;
+                
+                const patterns = data.patterns || [];
+                for (const pattern of patterns) {
+                    if (lowerMessage.includes(pattern)) {
+                        if (data.responses) {
+                            return data.responses[Math.floor(Math.random() * data.responses.length)];
+                        }
+                        return data.response;
+                    }
+                }
+            }
+            
+            return aiKnowledge.default.responses[Math.floor(Math.random() * aiKnowledge.default.responses.length)];
+        }
+
+        // Mobile Menu Functions
         function toggleMobileMenu() {
             const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
             navMenu.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         }
 
-        function closeModal() {
-            document.getElementById('successModal').classList.remove('active');
+        function closeMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            navMenu.classList.remove('active');
+            menuBtn.classList.remove('active');
+            document.body.style.overflow = '';
         }
 
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-            
-            const whatsappMessage = `Hi Crochetiya! 🌸\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || 'Not provided'}\nInterested in: ${data.product}\n\nMessage: ${data.message}`;
-            
-            const whatsappURL = `https://wa.me/919013463956?text=${encodeURIComponent(whatsappMessage)}`;
-            
-            window.open(whatsappURL, '_blank');
-            
-            document.getElementById('successModal').classList.add('active');
-            e.target.reset();
-        });
-
-        window.addEventListener('scroll', function() {
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) {
+            if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
         });
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+        // Smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#' && href.length > 1) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            closeMenu();
+                            const navHeight = document.getElementById('navbar').offsetHeight;
+                            const targetPosition = target.offsetTop - navHeight;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+
+        // Contact Form Handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const data = {};
+                    formData.forEach((value, key) => {
+                        data[key] = value;
                     });
                     
-                    const navMenu = document.getElementById('navMenu');
-                    if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
+                    // Show success modal
+                    document.getElementById('successModal').classList.add('active');
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Optional: Send to WhatsApp
+                    const whatsappMessage = `New Inquiry from Website!\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || 'Not provided'}\nInterested in: ${data.product}\nMessage: ${data.message}`;
+                    const whatsappUrl = `https://wa.me/919013463956?text=${encodeURIComponent(whatsappMessage)}`;
+                    
+                    // Open WhatsApp in new tab after 2 seconds
+                    setTimeout(() => {
+                        window.open(whatsappUrl, '_blank');
+                    }, 2000);
+                });
+            }
+        });
+
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('successModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal();
                     }
+                });
+            }
+        });
+
+        // Image Loading Handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            
+            images.forEach(img => {
+                // Check if image is already loaded
+                if (img.complete && img.naturalHeight !== 0) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', function() {
+                        this.classList.add('loaded');
+                    });
+                    
+                    img.addEventListener('error', function() {
+                        this.classList.add('error');
+                        console.warn('Image failed to load:', this.src);
+                    });
                 }
             });
         });
 
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
+        // Intersection Observer for scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
 
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards and sections
+            const elements = document.querySelectorAll('.product-card, .why-card, .instagram-post, .gallery-item');
+            elements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
             });
-        }, observerOptions);
-
-        document.querySelectorAll('.product-card, .why-card, .instagram-post').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
         });
 
-        console.log('🧶 Welcome to Crochetiya! Made with ❤️ and Wool ✨');
+        // Prevent zoom on double tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navbar = document.getElementById('navbar');
+            
+            if (navMenu && navMenu.classList.contains('active')) {
+                if (!navbar.contains(event.target)) {
+                    closeMenu();
+                }
+            }
+        });
+
+        // Close AI chat when clicking outside
+        document.addEventListener('click', function(event) {
+            const aiChat = document.getElementById('aiChat');
+            const aiAssistant = document.querySelector('.ai-assistant');
+            
+            if (aiChat && aiChat.classList.contains('active')) {
+                if (!aiAssistant.contains(event.target)) {
+                    toggleChat();
+                }
+            }
+        });
+
+        // Handle window resize
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                // Close mobile menu if window is resized to desktop size
+                if (window.innerWidth > 968) {
+                    closeMenu();
+                }
+            }, 250);
+        });
+
+        // Console welcome message
+        console.log('%c🧶 Welcome to Crochetiya! 🌸', 'color: #FF6B9D; font-size: 20px; font-weight: bold;');
+        console.log('%cHandmade with Love ❤️', 'color: #C44569; font-size: 14px;');
+        console.log('%cInterested in our code or want to collaborate? Reach out! 💕', 'color: #666; font-size: 12px;');
+
+        // Service Worker Registration (Optional - for PWA capabilities)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // Uncomment below if you want PWA functionality
+                // navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                //     console.log('ServiceWorker registration successful');
+                // }, function(err) {
+                //     console.log('ServiceWorker registration failed: ', err);
+                // });
+            });
+        }
+
+        // Add mobile menu button active state toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            }
+        });
     </script>
 </body>
 </html>
