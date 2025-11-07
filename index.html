@@ -2636,11 +2636,11 @@
     </div>
 
     <script>
-        // LOADING SCREEN - Shows for 1.2 seconds
+        // LOADING SCREEN - EXACTLY 1 SECOND
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
-            }, 1200);
+            }, 1000); // Changed from 1200 to 1000 (exactly 1 second)
         });
 
         // Enhanced AI Knowledge Base
