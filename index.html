@@ -74,7 +74,7 @@
             }
         }
 
-        /* ===== STUNNING LOADING SCREEN - WEBSITE THEMED ===== */
+        /* ===== IMPROVED LOADING SCREEN - MOBILE OPTIMIZED ===== */
         .loader {
             position: fixed;
             top: 0;
@@ -88,6 +88,14 @@
             z-index: 9999;
             transition: opacity 0.8s ease, visibility 0.8s ease;
             overflow: hidden;
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
 
         /* Add mesh gradient overlay */
@@ -839,11 +847,15 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 1;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
-        .gallery-item:hover img {
-            transform: scale(1.1);
+        .gallery-item img {
+            position: relative;
         }
 
         .gallery-item-overlay {
@@ -986,11 +998,12 @@
             position: absolute;
             top: 0;
             left: 0;
-            transition: transform 0.3s ease;
+            opacity: 1;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
-        .product-card:hover .product-image img {
-            transform: scale(1.05);
+        .gallery-item img {
+            position: relative;
         }
 
         /* Add shimmer effect to images on hover */
@@ -1741,14 +1754,82 @@
         .product-image img,
         .gallery-item img,
         .instagram-post img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 1;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .gallery-item img {
+            position: relative;
+        }
+
+        /* Fix image visibility issues */
+        .product-image,
+        .gallery-item,
+        .instagram-post {
+            background-color: var(--cream);
+        }
+
+        .product-image img.loading,
+        .gallery-item img.loading,
+        .instagram-post img.loading {
             opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
         .product-image img.loaded,
         .gallery-item img.loaded,
         .instagram-post img.loaded {
             opacity: 1;
+        }
+
+        .product-image img.error,
+        .gallery-item img.error,
+        .instagram-post img.error {
+            opacity: 0;
+        }
+
+        /* Fallback for missing images */
+        .product-image.no-image,
+        .gallery-item.no-image,
+        .instagram-post.no-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        /* Better mobile image handling */
+        @media (max-width: 968px) {
+            .product-image img,
+            .gallery-item img,
+            .instagram-post img {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+
+            .hero-gallery {
+                gap: 1rem;
+            }
+
+            .gallery-item {
+                min-height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-item {
+                min-height: 120px;
+            }
+
+            .product-image {
+                min-height: 280px;
+            }
         }
 
         @media (max-width: 1200px) {
@@ -2582,6 +2663,89 @@
     </div>
 
     <script>
+        // Improved image loading with better error handling
+        function initializeImages() {
+            const images = document.querySelectorAll('img');
+            
+            images.forEach(img => {
+                // Add loading class initially
+                img.classList.add('loading');
+                
+                // Check if image is already cached/loaded
+                if (img.complete && img.naturalHeight !== 0) {
+                    img.classList.remove('loading');
+                    img.classList.add('loaded');
+                } else {
+                    // Load event
+                    img.addEventListener('load', function() {
+                        this.classList.remove('loading');
+                        this.classList.add('loaded');
+                    });
+                    
+                    // Error event - handle missing images
+                    img.addEventListener('error', function() {
+                        this.classList.remove('loading');
+                        this.classList.add('error');
+                        
+                        const parent = this.closest('.product-image, .gallery-item, .instagram-post');
+                        if (parent) {
+                            parent.classList.add('no-image');
+                            
+                            // Determine which emoji to show based on context
+                            let emoji = '🎨';
+                            if (parent.classList.contains('product-image')) {
+                                const card = parent.closest('.product-card');
+                                if (card) {
+                                    const title = card.querySelector('h3')?.textContent || '';
+                                    if (title.includes('Flower')) emoji = '🌸';
+                                    else if (title.includes('Toy')) emoji = '🧸';
+                                    else if (title.includes('Bag')) emoji = '👜';
+                                    else if (title.includes('Keychain')) emoji = '🔑';
+                                    else if (title.includes('Gift')) emoji = '🎁';
+                                }
+                            } else if (parent.classList.contains('gallery-item')) {
+                                const overlay = parent.querySelector('.gallery-item-overlay')?.textContent || '';
+                                if (overlay.includes('Flower')) emoji = '🌺';
+                                else if (overlay.includes('Toy')) emoji = '🧸';
+                                else if (overlay.includes('Bag')) emoji = '👜';
+                                else if (overlay.includes('Keychain')) emoji = '🔑';
+                            } else {
+                                emoji = '📸';
+                            }
+                            
+                            parent.innerHTML = emoji;
+                        }
+                        
+                        console.warn('Image failed to load:', this.src);
+                    });
+                }
+            });
+        }
+
+        // Improved loader with mobile detection
+        function hideLoader() {
+            const loader = document.getElementById('loader');
+            if (loader) {
+                // Ensure loader shows for minimum time
+                const minLoadTime = 1200;
+                const startTime = window.loaderStartTime || Date.now();
+                const elapsed = Date.now() - startTime;
+                const remainingTime = Math.max(0, minLoadTime - elapsed);
+                
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                    
+                    // Remove from DOM after animation
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                    }, 800);
+                }, remainingTime);
+            }
+        }
+
+        // Track loader start time
+        window.loaderStartTime = Date.now();
+
         // Initialize particles (desktop only)
         function createParticles() {
             const container = document.getElementById('particlesContainer');
@@ -2860,6 +3024,9 @@
 
         // Enhanced scroll animations
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize images immediately
+            initializeImages();
+            
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -100px 0px'
@@ -2955,15 +3122,55 @@
             const images = document.querySelectorAll('img');
             
             images.forEach(img => {
+                // Add loading class initially
+                img.classList.add('loading');
+                
+                // Check if image is already cached/loaded
                 if (img.complete && img.naturalHeight !== 0) {
+                    img.classList.remove('loading');
                     img.classList.add('loaded');
                 } else {
+                    // Load event
                     img.addEventListener('load', function() {
+                        this.classList.remove('loading');
                         this.classList.add('loaded');
                     });
                     
+                    // Error event - handle missing images
                     img.addEventListener('error', function() {
+                        this.classList.remove('loading');
                         this.classList.add('error');
+                        
+                        const parent = this.closest('.product-image, .gallery-item, .instagram-post');
+                        if (parent) {
+                            parent.classList.add('no-image');
+                            
+                            // Determine which emoji to show based on context
+                            let emoji = '🎨';
+                            if (parent.classList.contains('product-image')) {
+                                const card = parent.closest('.product-card');
+                                if (card) {
+                                    const title = card.querySelector('h3')?.textContent || '';
+                                    if (title.includes('Flower')) emoji = '🌸';
+                                    else if (title.includes('Toy')) emoji = '🧸';
+                                    else if (title.includes('Bag')) emoji = '👜';
+                                    else if (title.includes('Keychain')) emoji = '🔑';
+                                    else if (title.includes('Gift')) emoji = '🎁';
+                                }
+                            } else if (parent.classList.contains('gallery-item')) {
+                                const overlay = parent.querySelector('.gallery-item-overlay')?.textContent || '';
+                                if (overlay.includes('Flower')) emoji = '🌺';
+                                else if (overlay.includes('Toy')) emoji = '🧸';
+                                else if (overlay.includes('Bag')) emoji = '👜';
+                                else if (overlay.includes('Keychain')) emoji = '🔑';
+                            } else {
+                                emoji = '📸';
+                            }
+                            
+                            parent.innerHTML = emoji;
+                        }
+                        
+                        console.warn('Image failed to load:', this.src);
                     });
                 }
             });
@@ -3000,300 +3207,6 @@
         // Console message
         console.log('%c🧶 Welcome to Crochetiya! 🌸', 'color: #FF6B9D; font-size: 20px; font-weight: bold;');
         console.log('%cHandmade with Love ❤️', 'color: #C44569; font-size: 14px;');
-    </script>
-</body>
-</html>
-                for (const pattern of patterns) {
-                    if (lowerMessage.includes(pattern)) {
-                        if (data.responses) {
-                            return data.responses[Math.floor(Math.random() * data.responses.length)];
-                        }
-                        return data.response;
-                    }
-                }
-            }
-            
-            return aiKnowledge.default.responses[Math.floor(Math.random() * aiKnowledge.default.responses.length)];
-        }
-
-        // Mobile Menu Functions
-        function toggleMobileMenu() {
-            const navMenu = document.getElementById('navMenu');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            navMenu.classList.toggle('active');
-            menuBtn.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            if (navMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        }
-
-        function closeMenu() {
-            const navMenu = document.getElementById('navMenu');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            navMenu.classList.remove('active');
-            menuBtn.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Smooth scrolling for anchor links
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const href = this.getAttribute('href');
-                    if (href !== '#' && href.length > 1) {
-                        e.preventDefault();
-                        const target = document.querySelector(href);
-                        if (target) {
-                            closeMenu();
-                            const navHeight = document.getElementById('navbar').offsetHeight;
-                            const targetPosition = target.offsetTop - navHeight;
-                            window.scrollTo({
-                                top: targetPosition,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
-                });
-            });
-        });
-
-        // Contact Form Handler
-        document.addEventListener('DOMContentLoaded', function() {
-            const contactForm = document.getElementById('contactForm');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const formData = new FormData(this);
-                    const data = {};
-                    formData.forEach((value, key) => {
-                        data[key] = value;
-                    });
-                    
-                    // Show success modal
-                    document.getElementById('successModal').classList.add('active');
-                    
-                    // Reset form
-                    this.reset();
-                    
-                    // Optional: Send to WhatsApp
-                    const whatsappMessage = `New Inquiry from Website!\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || 'Not provided'}\nInterested in: ${data.product}\nMessage: ${data.message}`;
-                    const whatsappUrl = `https://wa.me/919013463956?text=${encodeURIComponent(whatsappMessage)}`;
-                    
-                    // Open WhatsApp in new tab after 2 seconds
-                    setTimeout(() => {
-                        window.open(whatsappUrl, '_blank');
-                    }, 2000);
-                });
-            }
-        });
-
-        function closeModal() {
-            document.getElementById('successModal').classList.remove('active');
-        }
-
-        // Close modal when clicking outside
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('successModal');
-            if (modal) {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        closeModal();
-                    }
-                });
-            }
-        });
-
-        // Image Loading Handler
-        document.addEventListener('DOMContentLoaded', function() {
-            const images = document.querySelectorAll('img');
-            
-            images.forEach(img => {
-                // Check if image is already loaded
-                if (img.complete && img.naturalHeight !== 0) {
-                    img.classList.add('loaded');
-                } else {
-                    img.addEventListener('load', function() {
-                        this.classList.add('loaded');
-                    });
-                    
-                    img.addEventListener('error', function() {
-                        this.classList.add('error');
-                        console.warn('Image failed to load:', this.src);
-                    });
-                }
-            });
-        });
-
-        // Intersection Observer for scroll animations
-        document.addEventListener('DOMContentLoaded', function() {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {  // FIXED: Added parentheses around 'entry'
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            // Observe all cards and sections
-            const elements = document.querySelectorAll('.product-card, .why-card, .instagram-post, .gallery-item');
-            elements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-        });
-
-        // Prevent zoom on double tap for iOS
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function(event) {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const navMenu = document.getElementById('navMenu');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            const navbar = document.getElementById('navbar');
-            
-            if (navMenu && navMenu.classList.contains('active')) {
-                if (!navbar.contains(event.target)) {
-                    closeMenu();
-                }
-            }
-        });
-
-        // Close AI chat when clicking outside
-        document.addEventListener('click', function(event) {
-            const aiChat = document.getElementById('aiChat');
-            const aiAssistant = document.querySelector('.ai-assistant');
-            
-            if (aiChat && aiChat.classList.contains('active')) {
-                if (!aiAssistant.contains(event.target)) {
-                    aiChat.classList.remove('active');
-                }
-            }
-        });
-
-        // Prevent chat from closing when clicking inside
-        document.addEventListener('DOMContentLoaded', function() {
-            const aiChat = document.getElementById('aiChat');
-            if (aiChat) {
-                aiChat.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-            }
-        });
-
-        // Handle orientation change for mobile
-        window.addEventListener('orientationchange', function() {
-            const aiChat = document.getElementById('aiChat');
-            if (aiChat && aiChat.classList.contains('active')) {
-                // Recalculate chat dimensions after orientation change
-                setTimeout(function() {
-                    aiChat.style.maxHeight = 'calc(100vh - 140px)';
-                }, 200);
-            }
-        });
-
-        // Adjust chat height on mobile keyboard open
-        if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', function() {
-                const aiChat = document.getElementById('aiChat');
-                if (aiChat && aiChat.classList.contains('active')) {
-                    const viewportHeight = window.visualViewport.height;
-                    if (window.innerWidth <= 480) {
-                        aiChat.style.height = Math.min(viewportHeight * 0.7, 500) + 'px';
-                    }
-                }
-            });
-        }
-
-        // Console welcome message
-        console.log('%c🧶 Welcome to Crochetiya! 🌸', 'color: #FF6B9D; font-size: 20px; font-weight: bold;');
-        console.log('%cHandmade with Love ❤️', 'color: #C44569; font-size: 14px;');
-        console.log('%cInterested in our code or want to collaborate? Reach out! 💕', 'color: #666; font-size: 12px;');
-
-        // Service Worker Registration (Optional - for PWA capabilities)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                // Uncomment below if you want PWA functionality
-                // navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                //     console.log('ServiceWorker registration successful');
-                // }, function(err) {
-                //     console.log('ServiceWorker registration failed: ', err);
-                // });
-            });
-        }
-
-        // Add mobile menu button active state toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                });
-            }
-        });
-
-        // Initialize on load
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-                createParticles();
-                showToast('Welcome to Crochetiya! 🌸', '👋');
-            }, 1200);
-        });
-
-        // 3D tilt effect for product cards
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.product-card');
-            
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    const rotateX = (y - centerY) / 10;
-                    const rotateY = (centerX - x) / 10;
-                    
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px)`;
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-                });
-            });
-        });
     </script>
 </body>
 </html>
