@@ -25,15 +25,8 @@
             --gradient-1: linear-gradient(135deg, #FF6B9D, #C44569);
             --gradient-2: linear-gradient(135deg, #FEC868, #FFA500);
             --gradient-3: linear-gradient(135deg, #A8E6CF, #56CCF2);
-            --gradient-mesh: radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.2) 0px, transparent 0%),
-                            radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.2) 0px, transparent 50%),
-                            radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 0.2) 0px, transparent 50%),
-                            radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 0.2) 0px, transparent 50%),
-                            radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 0.2) 0px, transparent 50%);
             --shadow: 0 10px 40px rgba(0,0,0,0.1);
             --shadow-elevated: 0 20px 60px rgba(0,0,0,0.15);
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.3);
         }
 
         body {
@@ -43,7 +36,7 @@
             background: var(--light);
         }
 
-        /* Enhanced Floating Particles Background */
+        /* Enhanced Floating Particles - Desktop Only */
         .particles-container {
             position: fixed;
             top: 0;
@@ -59,22 +52,19 @@
             position: absolute;
             background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
             border-radius: 50%;
-            opacity: 0.15;
-            animation: floatParticle 20s infinite ease-in-out;
+            opacity: 0.1;
+            animation: floatParticle 25s infinite ease-in-out;
         }
 
         @keyframes floatParticle {
             0%, 100% {
                 transform: translate(0, 0) rotate(0deg) scale(1);
             }
-            25% {
-                transform: translate(100px, -100px) rotate(90deg) scale(1.2);
+            33% {
+                transform: translate(100px, -80px) rotate(120deg) scale(1.1);
             }
-            50% {
-                transform: translate(200px, 0) rotate(180deg) scale(0.8);
-            }
-            75% {
-                transform: translate(100px, 100px) rotate(270deg) scale(1.1);
+            66% {
+                transform: translate(-80px, 100px) rotate(240deg) scale(0.9);
             }
         }
 
@@ -100,7 +90,7 @@
             position: absolute;
             width: 200%;
             height: 200%;
-            background: var(--gradient-mesh);
+            background: var(--gradient-2);
             animation: rotateGradient 20s linear infinite;
         }
 
@@ -531,64 +521,14 @@
             font-weight: 600;
         }
 
-        /* Beautiful Sparkles */
-        .sparkle {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: #FEC868;
-            border-radius: 50%;
-            box-shadow: 
-                0 0 15px #FEC868,
-                0 0 25px rgba(254, 200, 104, 0.5);
-            animation: sparkleAnim 1.5s ease-in-out infinite;
-        }
-
-        .sparkle:nth-child(1) {
-            top: 20%;
-            left: 20%;
-            animation-delay: 0s;
-        }
-
-        .sparkle:nth-child(2) {
-            top: 20%;
-            right: 20%;
-            animation-delay: 0.3s;
-        }
-
-        .sparkle:nth-child(3) {
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 0.6s;
-        }
-
-        .sparkle:nth-child(4) {
-            bottom: 20%;
-            right: 20%;
-            animation-delay: 0.9s;
-        }
-
-        @keyframes sparkleAnim {
-            0%, 100% {
-                opacity: 0;
-                transform: scale(0);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.5);
-            }
-        }
-        /* ===== END LOADING SCREEN ===== */
-
         /* Glassmorphism Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
@@ -615,16 +555,10 @@
             align-items: center;
             gap: 0.5rem;
             transition: transform 0.3s;
-            animation: logoGlow 3s ease-in-out infinite;
         }
 
-        @keyframes logoGlow {
-            0%, 100% {
-                filter: drop-shadow(0 0 5px rgba(255, 107, 157, 0.3));
-            }
-            50% {
-                filter: drop-shadow(0 0 20px rgba(255, 107, 157, 0.6));
-            }
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         nav ul {
@@ -640,22 +574,7 @@
             font-weight: 500;
             transition: all 0.3s;
             position: relative;
-            overflow: hidden;
-        }
-
-        nav a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        nav a:hover::before {
-            left: 100%;
+            font-size: 0.95rem;
         }
 
         nav a:hover {
@@ -726,22 +645,30 @@
             padding: 8rem 5% 4rem;
         }
 
-        /* Animated gradient mesh overlay */
         .hero::before {
-            content: '';
+            content: '🧶';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient-mesh);
-            animation: meshMove 15s ease infinite;
-            opacity: 0.6;
+            font-size: 25rem;
+            opacity: 0.03;
+            animation: float 25s ease-in-out infinite;
+            top: 10%;
+            left: -10%;
         }
 
-        @keyframes meshMove {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(50px, 30px) scale(1.1); }
+        .hero::after {
+            content: '🌸';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.03;
+            animation: float 30s ease-in-out infinite reverse;
+            bottom: 10%;
+            right: -10%;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(50px, -50px) rotate(10deg); }
+            66% { transform: translate(-30px, 30px) rotate(-5deg); }
         }
 
         .hero-content {
@@ -802,6 +729,26 @@
             align-items: center;
             gap: 0.6rem;
             font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .btn:hover::before {
+            width: 400px;
+            height: 400px;
         }
 
         .btn-primary {
@@ -855,8 +802,6 @@
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow);
-            transform-style: preserve-3d;
-            perspective: 1000px;
         }
 
         .gallery-item::before {
@@ -874,7 +819,7 @@
         }
 
         .gallery-item:hover {
-            transform: translateY(-12px) rotateY(5deg) scale(1.03);
+            transform: translateY(-12px) scale(1.03);
             box-shadow: 0 25px 60px rgba(0,0,0,0.2);
         }
 
@@ -910,17 +855,7 @@
             position: absolute;
             font-size: 3rem;
             opacity: 0.1;
-            animation: floatRandom 15s ease-in-out infinite, glow 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.3));
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.3));
-            }
-            50% {
-                filter: drop-shadow(0 0 20px rgba(255, 107, 157, 0.6));
-            }
+            animation: floatRandom 15s ease-in-out infinite;
         }
 
         @keyframes floatRandom {
@@ -994,30 +929,10 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transform-style: preserve-3d;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(254, 200, 104, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s;
-            border-radius: 25px;
-            z-index: 1;
-        }
-
-        .product-card:hover::before {
-            opacity: 1;
         }
 
         .product-card:hover {
-            transform: translateY(-15px) rotateX(5deg);
+            transform: translateY(-15px);
             box-shadow: 0 25px 70px rgba(0,0,0,0.18);
         }
 
@@ -1049,6 +964,8 @@
 
         .product-info {
             padding: 2rem;
+            position: relative;
+            z-index: 2;
         }
 
         .product-info h3 {
@@ -1119,61 +1036,198 @@
             cursor: pointer;
             transition: all 0.4s;
             box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
         }
 
-        /* Hover overlay effect */
-        .instagram-post::before {
-            content: '';
+        .instagram-post img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 107, 157, 0.4), rgba(196, 69, 105, 0.6));
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1;
-        }
-
-        .instagram-post:hover::before {
-            opacity: 1;
         }
 
         .instagram-post::after {
-            content: '';
+            content: '❤️';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            width: 45px;
-            height: 45px;
-            border: 2px dashed rgba(255, 255, 255, 0.3);
+            font-size: 3rem;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s;
+        }
+
+        .instagram-post:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .instagram-post:hover::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.9;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            animation: yarnRotate 3s linear infinite reverse;
-            z-index: 2;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s;
         }
 
-        @keyframes yarnRotate {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
         }
 
-        /* Enhanced Why Cards with Flip Effect */
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            text-align: center;
+            max-width: 500px;
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-content .icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .modal-content p {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #why {
+            background: white;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
         .why-card {
             padding: 2.5rem;
             background: var(--cream);
             border-radius: 25px;
             text-align: center;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s;
             position: relative;
             overflow: hidden;
-            transform-style: preserve-3d;
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            transition: left 0.5s;
+            z-index: 0;
+        }
+
+        .why-card:hover::before {
+            left: 0;
         }
 
         .why-card:hover {
-            transform: translateY(-10px) rotateY(10deg);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
             color: white;
         }
 
@@ -1222,9 +1276,7 @@
         .contact-container {
             max-width: 900px;
             margin: 0 auto;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+            background: white;
             padding: 4rem;
             border-radius: 30px;
             box-shadow: 0 20px 70px rgba(0,0,0,0.12);
@@ -1313,7 +1365,6 @@
             min-height: 150px;
         }
 
-        /* Enhanced submit button */
         .submit-btn {
             width: 100%;
             padding: 1.3rem;
@@ -1330,26 +1381,6 @@
             align-items: center;
             justify-content: center;
             gap: 0.7rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .submit-btn:hover::before {
-            width: 300px;
-            height: 300px;
         }
 
         .submit-btn:hover {
@@ -1385,40 +1416,25 @@
             color: white;
             font-size: 2.2rem;
             animation: pulse 2s ease-in-out infinite;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* Ripple effect on AI button */
-        .ai-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .ai-button:hover::before {
-            width: 200px;
-            height: 200px;
+        .ai-button:hover {
+            transform: scale(1.12) rotate(15deg);
+            box-shadow: 0 15px 50px rgba(255, 107, 157, 0.6);
+            animation: none;
         }
 
         .ai-chat {
             position: fixed;
-            bottom: 110px;
+            bottom: 120px;
             right: 30px;
             width: 420px;
             max-width: calc(100vw - 60px);
             height: 600px;
-            max-height: calc(100vh - 140px);
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+            max-height: calc(100vh - 160px);
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 70px rgba(0,0,0,0.25);
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -1475,12 +1491,21 @@
             max-width: 85%;
             animation: messageSlide 0.3s ease;
             line-height: 1.6;
-            position: relative;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .ai-message.bot {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
+            background: white;
             align-self: flex-start;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
             border: 2px solid #f0f0f0;
@@ -1493,193 +1518,111 @@
             box-shadow: 0 2px 12px rgba(255, 107, 157, 0.3);
         }
 
-        /* Message reactions */
-        .message-reactions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.3s;
-        }
-
-        .ai-message:hover .message-reactions {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reaction-btn {
+        .ai-typing {
+            padding: 1rem;
             background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 0.3rem 0.6rem;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s;
+            border-radius: 18px;
+            align-self: flex-start;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            display: none;
         }
 
-        .reaction-btn:hover {
+        .ai-typing.active {
+            display: block;
+        }
+
+        .ai-typing span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
             background: var(--primary);
-            color: white;
-            transform: scale(1.1);
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite;
         }
 
-        /* Product suggestions in chat */
-        .product-suggestion {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
+        .ai-typing span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .ai-typing span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        .ai-input-area {
+            padding: 1.2rem;
             background: white;
-            border-radius: 15px;
-            margin: 0.5rem 0;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
+            border-top: 2px solid #f0f0f0;
+            display: flex;
+            gap: 0.7rem;
         }
 
-        .product-suggestion:hover {
-            border-color: var(--primary);
-            transform: translateX(5px);
-            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.2);
-        }
-
-        .product-suggestion img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .product-suggestion-info {
+        .ai-input {
             flex: 1;
+            padding: 1rem 1.3rem;
+            border: 2px solid #E0E0E0;
+            border-radius: 25px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
         }
 
-        .product-suggestion-info h4 {
-            font-size: 0.95rem;
-            margin-bottom: 0.3rem;
-            color: var(--dark);
+        .ai-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
         }
 
-        .product-suggestion-info p {
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        /* Voice input button */
-        .voice-input-btn {
-            padding: 1rem;
+        .ai-send {
+            padding: 1rem 1.8rem;
             background: var(--gradient-1);
             color: white;
             border: none;
             border-radius: 25px;
             cursor: pointer;
+            font-weight: 600;
             transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .ai-send:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.3);
+        }
+
+        .ai-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .quick-replies {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 50px;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            padding: 0 1.5rem 1rem;
         }
 
-        .voice-input-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .voice-input-btn.recording {
-            animation: recordPulse 1s infinite;
-        }
-
-        @keyframes recordPulse {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(255, 107, 157, 0.7);
-            }
-            50% {
-                box-shadow: 0 0 0 15px rgba(255, 107, 157, 0);
-            }
-        }
-
-        /* Suggested questions carousel */
-        .suggested-questions {
-            display: flex;
-            gap: 0.5rem;
-            padding: 1rem;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-        }
-
-        .suggested-questions::-webkit-scrollbar {
-            display: none;
-        }
-
-        .suggested-question {
-            white-space: nowrap;
+        .quick-reply {
             padding: 0.6rem 1.2rem;
-            background: linear-gradient(135deg, #FFF, #FFE8F0);
+            background: white;
             border: 2px solid var(--primary);
+            color: var(--primary);
             border-radius: 20px;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 0.85rem;
             font-weight: 500;
         }
 
-        .suggested-question:hover {
-            background: var(--gradient-1);
+        .quick-reply:hover {
+            background: var(--primary);
             color: white;
-            transform: translateY(-3px);
-        }
-
-        /* Enhanced Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            padding: 3rem;
-            border-radius: 25px;
-            text-align: center;
-            max-width: 500px;
-            animation: slideUp 0.3s ease, modalGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes modalGlow {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(255, 107, 157, 0.2);
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(255, 107, 157, 0.4);
-            }
-        }
-
-        .modal-content .icon {
-            font-size: 5rem;
-            margin-bottom: 1rem;
-        }
-
-        .modal-content h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-
-        .modal-content p {
-            color: #666;
-            margin-bottom: 2rem;
-            line-height: 1.7;
+            transform: translateY(-2px);
         }
 
         /* Scroll Progress Bar */
@@ -1694,24 +1637,10 @@
             transition: width 0.1s;
         }
 
-        /* Cursor Trail Effect */
-        .cursor-trail {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--primary), transparent);
-            pointer-events: none;
-            z-index: 9998;
-            opacity: 0;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s;
-        }
-
         /* Toast Notifications */
         .toast {
             position: fixed;
-            bottom: 100px;
+            bottom: 120px;
             right: 30px;
             background: white;
             padding: 1rem 1.5rem;
@@ -1737,13 +1666,18 @@
             font-size: 0.95rem;
         }
 
-        /* Enhanced Responsive Design */
-        @media (max-width: 968px) {
-            /* ...existing code... */
-            
-            .particles-container {
-                display: none; /* Hide particles on mobile for performance */
-            }
+        /* Image loading */
+        .product-image img,
+        .gallery-item img,
+        .instagram-post img {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-image img.loaded,
+        .gallery-item img.loaded,
+        .instagram-post img.loaded {
+            opacity: 1;
         }
 
         @media (max-width: 1200px) {
@@ -1763,57 +1697,12 @@
         }
 
         @media (max-width: 968px) {
+            .particles-container {
+                display: none;
+            }
+
             nav {
                 padding: 1rem 3%;
-            }
-
-            .hero {
-                padding: 6rem 3% 3rem;
-            }
-
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2.5rem;
-            }
-
-            .hero-text h1 {
-                font-size: 3.2rem;
-            }
-
-            .hero-text .hindi {
-                font-size: 1.8rem;
-            }
-
-            .hero-text p {
-                font-size: 1rem;
-            }
-
-            .hero-gallery {
-                max-width: 400px;
-                margin: 0 auto;
-            }
-
-            .cta-buttons {
-                justify-content: center;
-                gap: 1rem;
-            }
-
-            .btn {
-                padding: 1rem 2rem;
-                font-size: 0.95rem;
-            }
-
-            section {
-                padding: 4rem 3%;
-            }
-
-            .section-header h2 {
-                font-size: 2.5rem;
-            }
-
-            .section-header p {
-                font-size: 1rem;
             }
 
             nav ul {
@@ -1846,90 +1735,61 @@
                 display: flex;
             }
 
-            .whatsapp-nav {
-                padding: 0.8rem 1.2rem;
-                font-size: 0.9rem;
+            .hero {
+                padding: 6rem 3% 3rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2.5rem;
+            }
+
+            .hero-text h1 {
+                font-size: 3.2rem;
+            }
+
+            .hero-text .hindi {
+                font-size: 1.8rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            .hero-gallery {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .btn {
+                padding: 1rem 2rem;
+                font-size: 0.95rem;
+            }
+
+            section {
+                padding: 4rem 3%;
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
             }
 
             .contact-container {
                 padding: 2.5rem 2rem;
-                margin: 0 1.5rem;
-            }
-
-            .contact-methods {
-                grid-template-columns: 1fr;
-                gap: 1.2rem;
-                margin-bottom: 2.5rem;
-            }
-
-            .contact-method {
-                padding: 1.8rem 1.5rem;
-                max-width: 100%;
-            }
-
-            .contact-method .icon {
-                font-size: 3rem;
-            }
-
-            .contact-method h3 {
-                font-size: 1.2rem;
-            }
-
-            .contact-method p {
-                font-size: 0.9rem;
             }
 
             .ai-chat {
-                position: fixed;
-                bottom: 90px;
+                bottom: 100px;
                 right: 10px;
                 left: 10px;
                 width: auto;
-                max-width: none;
-                height: 70vh;
+                height: 65vh;
                 max-height: 500px;
-                border-radius: 20px;
-            }
-
-            .ai-header {
-                padding: 1.5rem;
-                font-size: 1rem;
-            }
-
-            .ai-messages {
-                padding: 1rem;
-                gap: 1rem;
-            }
-
-            .ai-message {
-                padding: 1rem;
-                font-size: 0.95rem;
-                max-width: 80%;
-            }
-
-            .quick-replies {
-                padding: 0 1rem 0.8rem;
-                gap: 0.5rem;
-            }
-
-            .quick-reply {
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
-            }
-
-            .ai-input-area {
-                padding: 1rem;
-                gap: 0.5rem;
-            }
-
-            .ai-input {
-                padding: 0.8rem 1rem;
-                font-size: 0.95rem;
-            }
-
-            .ai-send {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.95rem;
             }
 
             .whatsapp-float,
@@ -1937,19 +1797,16 @@
                 bottom: 20px;
             }
 
-            .whatsapp-float {
-                left: 20px;
-            }
-
-            .ai-assistant {
-                right: 20px;
-            }
-
             .whatsapp-float a,
             .ai-button {
                 width: 60px;
                 height: 60px;
                 font-size: 2rem;
+            }
+
+            .toast {
+                bottom: 100px;
+                right: 20px;
             }
         }
 
@@ -1976,383 +1833,45 @@
 
             .contact-container {
                 padding: 2rem 1.5rem;
-                margin: 0 1rem;
-            }
-
-            .contact-methods {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                margin-bottom: 2rem;
-            }
-
-            .contact-method {
-                padding: 1.5rem 1rem;
-            }
-
-            .contact-method .icon {
-                font-size: 2.8rem;
-                margin-bottom: 0.8rem;
-            }
-
-            .contact-method h3 {
-                font-size: 1.1rem;
-                margin-bottom: 0.4rem;
-            }
-
-            .contact-method p {
-                font-size: 0.85rem;
-                line-height: 1.5;
             }
 
             .ai-chat {
-                position: fixed;
                 bottom: 90px;
-                right: 10px;
-                left: 10px;
-                width: auto;
-                max-width: none;
                 height: 70vh;
-                max-height: 500px;
-                border-radius: 20px;
-            }
-
-            .ai-header {
-                padding: 1.5rem;
-                font-size: 1rem;
-            }
-
-            .ai-messages {
-                padding: 1rem;
-                gap: 1rem;
-            }
-
-            .ai-message {
-                padding: 1rem;
-                font-size: 0.95rem;
-                max-width: 80%;
-            }
-
-            .quick-replies {
-                padding: 0 1rem 0.8rem;
-                gap: 0.5rem;
-            }
-
-            .quick-reply {
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
-            }
-
-            .ai-input-area {
-                padding: 1rem;
-                gap: 0.5rem;
-            }
-
-            .ai-input {
-                padding: 0.8rem 1rem;
-                font-size: 0.95rem;
-            }
-
-            .ai-send {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.95rem;
-            }
-
-            .whatsapp-float,
-            .ai-assistant {
-                bottom: 20px;
-            }
-
-            .whatsapp-float {
-                left: 20px;
-            }
-
-            .ai-assistant {
-                right: 20px;
-            }
-
-            .whatsapp-float a,
-            .ai-button {
-                width: 60px;
-                height: 60px;
-                font-size: 2rem;
             }
         }
 
         @media (max-width: 480px) {
-            nav {
-                padding: 0.8rem 4%;
-            }
-
             .logo {
                 font-size: 1.3rem;
             }
 
-            .hero {
-                padding: 5rem 4% 2rem;
-            }
-
             .hero-text h1 {
                 font-size: 2.2rem;
-                line-height: 1.1;
             }
 
             .hero-text .hindi {
                 font-size: 1.3rem;
             }
 
-            .hero-text p {
-                font-size: 0.95rem;
-                margin-bottom: 2rem;
-            }
-
-            .btn {
-                padding: 0.9rem 1.5rem;
-                font-size: 0.9rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .cta-buttons .btn {
-                width: 100%;
-                max-width: 280px;
-            }
-
-            section {
-                padding: 3rem 4%;
-            }
-
             .section-header h2 {
                 font-size: 2rem;
             }
 
-            .section-header {
-                margin-bottom: 2.5rem;
-            }
-
-            .product-card,
-            .why-card {
-                margin: 0 auto;
-                max-width: 320px;
-            }
-
-            .contact-container {
-                padding: 1.5rem;
-                margin: 0 0.5rem;
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
             }
 
             .ai-chat {
-                position: fixed;
                 bottom: 80px;
-                right: 0;
-                left: 0;
-                width: 100%;
-                height: 70vh;
-                max-height: 500px;
                 border-radius: 20px 20px 0 0;
-                margin: 0;
-            }
-
-            .ai-header {
-                padding: 1.2rem;
-                font-size: 0.95rem;
-            }
-
-            .ai-close {
-                font-size: 1.3rem;
-            }
-
-            .ai-messages {
-                padding: 0.8rem;
-                gap: 0.8rem;
-            }
-
-            .ai-message {
-                padding: 0.9rem 1rem;
-                font-size: 0.9rem;
-                max-width: 85%;
-            }
-
-            .quick-replies {
-                padding: 0 0.8rem 0.6rem;
-                gap: 0.4rem;
-            }
-
-            .quick-reply {
-                padding: 0.5rem 0.8rem;
-                font-size: 0.75rem;
-            }
-
-            .ai-input-area {
-                padding: 0.8rem;
-                gap: 0.5rem;
-            }
-
-            .ai-input {
-                padding: 0.7rem 0.9rem;
-                font-size: 0.9rem;
-            }
-
-            .ai-send {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.9rem;
-            }
-
-            .ai-typing {
-                padding: 0.8rem;
-            }
-
-            .whatsapp-float {
-                left: 15px;
-                bottom: 15px;
-            }
-
-            .ai-assistant {
-                right: 15px;
-                bottom: 15px;
             }
 
             .ai-button {
                 width: 55px;
                 height: 55px;
                 font-size: 1.8rem;
-            }
-
-            .ai-chat {
-                position: fixed;
-                bottom: 80px;
-                right: 0;
-                left: 0;
-                width: 100%;
-                height: 70vh;
-                max-height: 500px;
-                border-radius: 20px 20px 0 0;
-                margin: 0;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .hero-text h1 {
-                font-size: 2rem;
-            }
-
-            .hero-gallery {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-item {
-                max-width: 250px;
-                margin: 0 auto;
-            }
-
-            .ai-chat {
-                bottom: 75px;
-                height: 75vh;
-                max-height: 450px;
-            }
-
-            .ai-message {
-                font-size: 0.85rem;
-                padding: 0.8rem 0.9rem;
-                max-width: 90%;
-            }
-
-            .quick-reply {
-                padding: 0.4rem 0.7rem;
-                font-size: 0.7rem;
-            }
-
-            .contact-container {
-                padding: 1.2rem 0.8rem;
-                margin: 0 0.3rem;
-            }
-
-            .contact-methods {
-                gap: 0.7rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .contact-method {
-                padding: 1.2rem 0.8rem;
-            }
-
-            .contact-method .icon {
-                font-size: 2.2rem;
-            }
-
-            .contact-method h3 {
-                font-size: 0.95rem;
-            }
-
-            .contact-method p {
-                font-size: 0.75rem;
-            }
-        }
-
-        /* Image loading and error handling */
-        .product-image img,
-        .gallery-item img,
-        .instagram-post img {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .product-image img.loaded,
-        .gallery-item img.loaded,
-        .instagram-post img.loaded {
-            opacity: 1;
-        }
-
-        .product-image img.error,
-        .gallery-item img.error,
-        .instagram-post img.error {
-            display: none;
-        }
-
-        /* Fallback for missing images */
-        .product-image:not(:has(img.loaded)) {
-            background: var(--gradient-1);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-        }
-
-        .product-image:not(:has(img.loaded))::before {
-            content: '🧶';
-        }
-
-        .gallery-item:not(:has(img.loaded)) {
-            background: var(--gradient-2);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-
-        .instagram-post:not(:has(img.loaded)) {
-            background: var(--gradient-1);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-
-        /* Enhanced touch targets for mobile */
-        @media (max-width: 768px) {
-            .btn, .contact-method, .quick-reply {
-                min-height: 44px;
-                touch-action: manipulation;
-            }
-
-            .gallery-item, .product-card, .instagram-post {
-                cursor: pointer;
-                touch-action: manipulation;
             }
         }
     </style>
@@ -2361,11 +1880,8 @@
     <!-- Scroll Progress Bar -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- Particles Background -->
+    <!-- Particles Background (Desktop Only) -->
     <div class="particles-container" id="particlesContainer"></div>
-
-    <!-- Cursor Trail -->
-    <div class="cursor-trail" id="cursorTrail"></div>
 
     <!-- Toast Notification -->
     <div class="toast" id="toast">
@@ -2708,31 +2224,12 @@
         <div class="ai-button" onclick="toggleChat()">🤖</div>
         <div class="ai-chat" id="aiChat">
             <div class="ai-header">
-                <span>🧶 Crochetiya AI Assistant</span>
+                <span>🧶 Crochetiya Assistant</span>
                 <span class="ai-close" onclick="toggleChat()">✕</span>
-            </div>
-            <div class="suggested-questions" id="suggestedQuestions">
-                <button class="suggested-question" onclick="sendQuickReply('Show me best sellers')">🌟 Best Sellers</button>
-                <button class="suggested-question" onclick="sendQuickReply('What\'s new?')">✨ New Arrivals</button>
-                <button class="suggested-question" onclick="sendQuickReply('Gift ideas')">🎁 Gift Ideas</button>
-                <button class="suggested-question" onclick="sendQuickReply('Bulk orders')">📦 Bulk Orders</button>
             </div>
             <div class="ai-messages" id="aiMessages">
                 <div class="ai-message bot">
-                    Namaste! 🙏 Welcome to Crochetiya! I'm your friendly AI assistant. I can help you with:
-                    <br><br>
-                    ✨ Product recommendations<br>
-                    💰 Pricing information<br>
-                    🎨 Custom order details<br>
-                    📦 Delivery information<br>
-                    🎁 Gift suggestions<br>
-                    <br>
-                    How can I help you today? 🌸
-                    <div class="message-reactions">
-                        <button class="reaction-btn" onclick="reactToMessage(this, '👍')">👍</button>
-                        <button class="reaction-btn" onclick="reactToMessage(this, '❤️')">❤️</button>
-                        <button class="reaction-btn" onclick="reactToMessage(this, '😊')">😊</button>
-                    </div>
+                    Namaste! 🙏 Welcome to Crochetiya! I'm your friendly wool expert. How can I help you today? Feel free to ask about our products, customization, pricing, or anything else! 🌸✨
                 </div>
             </div>
             <div class="quick-replies">
@@ -2748,9 +2245,6 @@
             </div>
             <div class="ai-input-area">
                 <input type="text" class="ai-input" id="aiInput" placeholder="Ask me anything..." onkeypress="handleKeyPress(event)">
-                <button class="voice-input-btn" id="voiceBtn" onclick="toggleVoiceInput()" title="Voice input">
-                    🎤
-                </button>
                 <button class="ai-send" onclick="sendMessage()">Send</button>
             </div>
         </div>
@@ -2766,10 +2260,516 @@
     </div>
 
     <script>
-        // Initialize particles background
+        // Initialize particles (desktop only)
         function createParticles() {
             const container = document.getElementById('particlesContainer');
             if (!container || window.innerWidth <= 968) return;
+            
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 80 + 40;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 25 + 's';
+                particle.style.animationDuration = Math.random() * 15 + 20 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Scroll progress
+        function updateScrollProgress() {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / scrollHeight) * 100;
+            scrollProgress.style.width = scrolled + '%';
+        }
+
+        window.addEventListener('scroll', updateScrollProgress);
+
+        // Toast notification
+        function showToast(message, icon = '🎉', duration = 3000) {
+            const toast = document.getElementById('toast');
+            const toastIcon = toast.querySelector('.toast-icon');
+            const toastMessage = toast.querySelector('.toast-message');
+            
+            toastIcon.textContent = icon;
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => toast.classList.remove('show'), duration);
+        }
+
+        // Enhanced AI Knowledge Base with product recommendations
+        const aiKnowledge = {
+            greetings: {
+                patterns: ['hi', 'hello', 'hey', 'namaste', 'namaskar', 'good morning', 'good evening'],
+                responses: [
+                    "Namaste! 🙏 Welcome to Crochetiya! I'm thrilled you're here. How can I help you explore our handmade wool creations today?",
+                    "Hello! 💕 So happy to see you! I'm here to help you find the perfect wool creation. What interests you?",
+                    "Hey there! 🌸 Welcome to our wool wonderland! What would you like to know about our handmade products?"
+                ]
+            },
+            thanks: {
+                patterns: ['thank', 'thanks', 'appreciate', 'धन्यवाद', 'grateful'],
+                responses: [
+                    "You're very welcome! 😊 Feel free to ask anything else about our wool creations!",
+                    "My pleasure! 💕 I'm here anytime you need help. Happy browsing!",
+                    "Anytime! 🌸 Don't hesitate to reach out if you have more questions!"
+                ]
+            },
+            flowers: {
+                patterns: ['flower', 'bloom', 'floral', 'rose', 'bouquet', 'decoration', 'phool'],
+                response: "Our wool flowers are absolutely gorgeous! 🌺🌸 They're eternal blooms that never fade or wilt. Perfect for:\n\n✨ Home decoration (living room, bedroom)\n🎁 Gifts for loved ones\n💐 Wedding decorations\n🌸 Office desk charm\n\nAvailable in vibrant colors like red, pink, yellow, purple, and more! Each flower is hand-crafted with premium wool. Prices start from affordable rates. Want to see some designs? Check our Instagram @crochetiya or WhatsApp us at +91 9013463956! 📸"
+            },
+            toys: {
+                patterns: ['toy', 'teddy', 'bear', 'doll', 'kids', 'children', 'baby', 'stuffed', 'khilona'],
+                response: "Our handmade wool toys are super adorable! 🧸💕 Made with:\n\n✅ 100% child-safe materials\n✅ Soft premium wool\n✅ Love and care in every stitch\n\nPerfect for:\n👶 Babies (soft & safe)\n🎁 Birthday gifts\n🏠 Room decoration\n💝 Baby showers\n\nWe make teddies, rabbits, dolls, and custom characters! Each toy is unique. Prices vary by size. Message us on WhatsApp +91 9013463956 to discuss your ideas! 💬"
+            },
+            bags: {
+                patterns: ['bag', 'tote', 'purse', 'handbag', 'carry', 'shopping'],
+                response: "Our crochet bags are stylish and eco-friendly! 👜🌿\n\n💚 100% sustainable wool\n💪 Strong and durable\n🎨 Custom colors available\n✨ Unique handmade designs\n\nPerfect for:\n🛍️ Shopping trips\n📚 Book carriers\n🏖️ Beach outings\n🎁 Thoughtful gifts\n\nEach bag is carefully crafted to last. Prices depend on size and design complexity. Contact us on WhatsApp +91 9013463956 for custom orders!"
+            },
+            keychains: {
+                patterns: ['keychain', 'key ring', 'key holder', 'charm', 'accessories'],
+                response: "Our wool keychains are cute and colorful! 🔑✨\n\n🎨 Available in all colors\n💝 Perfect as gifts or party favors\n🎉 Great for return gifts\n✨ Lightweight and durable\n\nPopular designs:\n🐻 Animals (bear, bunny, cat)\n🌸 Flowers\n💗 Hearts\n🌈 Custom characters\n\nAffordable prices, bulk orders welcome! WhatsApp us at +91 9013463956 to place your order! 📱"
+            },
+            pricing: {
+                patterns: ['price', 'cost', 'how much', 'rate', 'kitna', 'kitne', 'paisa'],
+                response: "Great question! 💰 Our pricing varies based on:\n\n📏 Size and complexity\n🎨 Design details\n🧶 Materials used\n⏱️ Time required\n\nGeneral price ranges:\n🌸 Wool Flowers: Starting from ₹50-300\n🧸 Toys: Starting from ₹200-800\n👜 Bags: Starting from ₹300-1500\n🔑 Keychains: Starting from ₹30-150\n\n💬 For exact pricing, please WhatsApp us your requirements at +91 9013463956. We'll give you a fair quote! Bulk orders get special discounts! 🎉"
+            },
+            custom: {
+                patterns: ['custom', 'personalize', 'special', 'design', 'order', 'make', 'banao'],
+                response: "Yes! We LOVE custom orders! 🎨✨\n\nYou can customize:\n🎨 Colors (any shade you want!)\n📏 Size (small to large)\n💡 Design (your own ideas)\n🎁 Gift packaging\n✍️ Personalized touches\n\nHow it works:\n1️⃣ Share your idea with us\n2️⃣ We discuss design & pricing\n3️⃣ We create it with love\n4️⃣ You receive your unique piece!\n\n⏱️ Delivery time: 3-7 days (depending on complexity)\n\nReady to create something special? WhatsApp us at +91 9013463956! Let's bring your vision to life! 💕"
+            },
+            delivery: {
+                patterns: ['deliver', 'shipping', 'send', 'courier', 'bhejoge', 'milega'],
+                response: "We deliver all over India! 🚚📦\n\n✅ Safe packaging\n✅ Fast shipping\n✅ Tracking provided\n✅ Delivery to your doorstep\n\n📍 Shipping charges: Depends on location\n⏱️ Delivery time: 3-7 business days\n🌏 International shipping: Available on request\n\n💬 To confirm delivery details and charges for your location, please WhatsApp us at +91 9013463956 with your pincode!"
+            },
+            care: {
+                patterns: ['care', 'wash', 'clean', 'maintain', 'kaise rakhein'],
+                response: "Taking care of your wool products is easy! 🧼✨\n\n🌸 Wool Flowers:\n• Dust gently with soft cloth\n• Keep away from water\n• Store in dry place\n\n🧸 Toys:\n• Gentle hand wash if needed\n• Air dry completely\n• Avoid harsh chemicals\n\n👜 Bags:\n• Spot clean with damp cloth\n• Air dry naturally\n• Store in cool, dry place\n\n💡 Pro tip: Wool items last years with proper care! They're durable and eco-friendly. Any specific care questions? Feel free to ask! 💕"
+            },
+            contact: {
+                patterns: ['contact', 'reach', 'call', 'message', 'whatsapp', 'email', 'sampark'],
+                response: "I'm so glad you want to connect! 📱💕\n\nContact us here:\n\n📞 WhatsApp: +91 9013463956 (Quick response!)\n✉️ Email: anuanushkasharma3613@gmail.com\n📸 Instagram: @crochetiya (See our latest work!)\n\n💬 Best way: WhatsApp us! We usually respond within a few hours. We're excited to hear from you! 🌸"
+            },
+            bestSellers: {
+                patterns: ['best seller', 'popular', 'trending', 'most bought', 'favorite'],
+                response: "Our best sellers this month! 🌟\n\n",
+                products: [
+                    { name: "Rose Bouquet", emoji: "🌹", price: "₹250" },
+                    { name: "Teddy Bear", emoji: "🧸", price: "₹500" },
+                    { name: "Mini Tote Bag", emoji: "👜", price: "₹800" }
+                ]
+            },
+            newArrivals: {
+                patterns: ['new', 'latest', 'recent', 'just added', 'what\'s new'],
+                response: "Check out our newest creations! ✨\n\n",
+                products: [
+                    { name: "Sunflower Bouquet", emoji: "🌻", price: "₹300" },
+                    { name: "Bunny Keychain", emoji: "🐰", price: "₹80" },
+                    { name: "Crochet Clutch", emoji: "👛", price: "₹600" }
+                ]
+            },
+            giftIdeas: {
+                patterns: ['gift', 'present', 'birthday', 'anniversary', 'occasion'],
+                response: "Perfect gift ideas for your loved ones! 🎁\n\n✨ For Mom: Wool flower bouquet\n💕 For Kids: Soft toys collection\n👜 For Her: Crochet bag set\n🔑 For Friends: Cute keychains\n🎨 Custom: Personalized creations\n\nAll come with beautiful gift packaging! Want specific recommendations? Let me know the occasion! 💝"
+            },
+            bulkOrders: {
+                patterns: ['bulk', 'wholesale', 'large order', 'many', 'quantity'],
+                response: "We love bulk orders! 📦✨\n\n💰 Special discounts available:\n• 10+ items: 10% off\n• 25+ items: 15% off\n• 50+ items: 20% off\n\n✅ Perfect for:\n🎉 Events & parties\n🏢 Corporate gifts\n💒 Wedding favors\n🎂 Birthday return gifts\n\n⏱️ Lead time: 7-14 days\n📦 Free shipping on orders above ₹5000\n\nWhatsApp us at +91 9013463956 for a customized quote! 💬"
+            }
+        };
+
+        // AI Chat Functions
+        function toggleChat() {
+            const chatBox = document.getElementById('aiChat');
+            chatBox.classList.toggle('active');
+
+            if (chatBox.classList.contains('active')) {
+                document.getElementById('aiInput').focus();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('aiInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage(message, 'user');
+            input.value = '';
+            
+            showTyping();
+            setTimeout(() => {
+                const response = getAIResponse(message);
+                hideTyping();
+                
+                if (response.products) {
+                    addMessage(response.text, 'bot');
+                    response.products.forEach(product => {
+                        addProductSuggestion(product);
+                    });
+                } else {
+                    addMessage(response, 'bot');
+                }
+            }, 1000 + Math.random() * 1000);
+        }
+
+        function sendQuickReply(message) {
+            document.getElementById('aiInput').value = message;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function addMessage(text, sender) {
+            const messagesContainer = document.getElementById('aiMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `ai-message ${sender}`;
+            messageDiv.textContent = text;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTyping() {
+            document.getElementById('aiTyping').classList.add('active');
+            const messages = document.getElementById('aiMessages');
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function hideTyping() {
+            document.getElementById('aiTyping').classList.remove('active');
+        }
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                createParticles();
+                showToast('Welcome to Crochetiya! 🌸', '👋');
+            }, 1200);
+        });
+
+        // Enhanced AI response with product recommendations
+        function getAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Check for product recommendation requests
+            if (lowerMessage.includes('best seller') || lowerMessage.includes('popular')) {
+                return {
+                    text: aiKnowledge.bestSellers.response,
+                    products: aiKnowledge.bestSellers.products
+                };
+            }
+            
+            if (lowerMessage.includes('new') || lowerMessage.includes('latest')) {
+                return {
+                    text: aiKnowledge.newArrivals.response,
+                    products: aiKnowledge.newArrivals.products
+                };
+            }
+            
+            for (const [category, data] of Object.entries(aiKnowledge)) {
+                if (category === 'default') continue;
+                
+                const patterns = data.patterns || [];
+                for (const pattern of patterns) {
+                    if (lowerMessage.includes(pattern)) {
+                        if (data.responses) {
+                            return data.responses[Math.floor(Math.random() * data.responses.length)];
+                        }
+                        return data.response;
+                    }
+                }
+            }
+            
+            return aiKnowledge.default.responses[Math.floor(Math.random() * aiKnowledge.default.responses.length)];
+        }
+
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            navMenu.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function closeMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            navMenu.classList.remove('active');
+            menuBtn.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#' && href.length > 1) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            closeMenu();
+                            const navHeight = document.getElementById('navbar').offsetHeight;
+                            const targetPosition = target.offsetTop - navHeight;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+
+        // Contact Form Handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const data = {};
+                    formData.forEach((value, key) => {
+                        data[key] = value;
+                    });
+                    
+                    // Show success modal
+                    document.getElementById('successModal').classList.add('active');
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Optional: Send to WhatsApp
+                    const whatsappMessage = `New Inquiry from Website!\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || 'Not provided'}\nInterested in: ${data.product}\nMessage: ${data.message}`;
+                    const whatsappUrl = `https://wa.me/919013463956?text=${encodeURIComponent(whatsappMessage)}`;
+                    
+                    // Open WhatsApp in new tab after 2 seconds
+                    setTimeout(() => {
+                        window.open(whatsappUrl, '_blank');
+                    }, 2000);
+                });
+            }
+        });
+
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('successModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal();
+                    }
+                });
+            }
+        });
+
+        // Image Loading Handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            
+            images.forEach(img => {
+                // Check if image is already loaded
+                if (img.complete && img.naturalHeight !== 0) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', function() {
+                        this.classList.add('loaded');
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {  // FIXED: Added parentheses around 'entry'
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards and sections
+            const elements = document.querySelectorAll('.product-card, .why-card, .instagram-post, .gallery-item');
+            elements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+
+        // Prevent zoom on double tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navbar = document.getElementById('navbar');
+            
+            if (navMenu && navMenu.classList.contains('active')) {
+                if (!navbar.contains(event.target)) {
+                    closeMenu();
+                }
+            }
+        });
+
+        // Close AI chat when clicking outside
+        document.addEventListener('click', function(event) {
+            const aiChat = document.getElementById('aiChat');
+            const aiAssistant = document.querySelector('.ai-assistant');
+            
+            if (aiChat && aiChat.classList.contains('active')) {
+                if (!aiAssistant.contains(event.target)) {
+                    aiChat.classList.remove('active');
+                }
+            }
+        });
+
+        // Prevent chat from closing when clicking inside
+        document.addEventListener('DOMContentLoaded', function() {
+            const aiChat = document.getElementById('aiChat');
+            if (aiChat) {
+                aiChat.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        });
+
+        // Handle orientation change for mobile
+        window.addEventListener('orientationchange', function() {
+            const aiChat = document.getElementById('aiChat');
+            if (aiChat && aiChat.classList.contains('active')) {
+                // Recalculate chat dimensions after orientation change
+                setTimeout(function() {
+                    aiChat.style.maxHeight = 'calc(100vh - 140px)';
+                }, 200);
+            }
+        });
+
+        // Adjust chat height on mobile keyboard open
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', function() {
+                const aiChat = document.getElementById('aiChat');
+                if (aiChat && aiChat.classList.contains('active')) {
+                    const viewportHeight = window.visualViewport.height;
+                    if (window.innerWidth <= 480) {
+                        aiChat.style.height = Math.min(viewportHeight * 0.7, 500) + 'px';
+                    }
+                }
+            });
+        }
+
+        // Console welcome message
+        console.log('%c🧶 Welcome to Crochetiya! 🌸', 'color: #FF6B9D; font-size: 20px; font-weight: bold;');
+        console.log('%cHandmade with Love ❤️', 'color: #C44569; font-size: 14px;');
+        console.log('%cInterested in our code or want to collaborate? Reach out! 💕', 'color: #666; font-size: 12px;');
+
+        // Service Worker Registration (Optional - for PWA capabilities)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // Uncomment below if you want PWA functionality
+                // navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                //     console.log('ServiceWorker registration successful');
+                // }, function(err) {
+                //     console.log('ServiceWorker registration failed: ', err);
+                // });
+            });
+        }
+
+        // Add mobile menu button active state toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            }
+        });
+
+        // Initialize
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                createParticles();
+                showToast('Welcome to Crochetiya! 🌸', '👋');
+            }, 1200);
+        });
+
+        // 3D tilt effect for product cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.product-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
             
             for (let i = 0; i < 15; i++) {
                 const particle = document.createElement('div');
