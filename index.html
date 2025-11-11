@@ -27,6 +27,12 @@
             --gradient-3: linear-gradient(135deg, #A8E6CF, #56CCF2);
             --shadow: 0 10px 40px rgba(0,0,0,0.1);
             --shadow-elevated: 0 20px 60px rgba(0,0,0,0.15);
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Improved smooth scrolling */
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -733,7 +739,12 @@
             overflow: hidden;
         }
 
-        .btn::before {
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn::after {
             content: '';
             position: absolute;
             top: 50%;
@@ -741,14 +752,15 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.4);
             transform: translate(-50%, -50%);
-            transition: width 0.5s, height 0.5s;
+            transition: width 0.6s, height 0.6s;
         }
 
-        .btn:hover::before {
-            width: 400px;
-            height: 400px;
+        .btn:active::after {
+            width: 300px;
+            height: 300px;
+            transition: width 0s, height 0s;
         }
 
         .btn-primary {
@@ -926,13 +938,32 @@
             background: var(--cream);
             border-radius: 25px;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s var(--transition-smooth);
             cursor: pointer;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(254, 200, 104, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            border-radius: 25px;
+        }
+
+        .product-card:hover::after {
+            opacity: 1;
         }
 
         .product-card:hover {
-            transform: translateY(-15px);
+            transform: translateY(-15px) scale(1.02);
             box-shadow: 0 25px 70px rgba(0,0,0,0.18);
         }
 
@@ -960,6 +991,29 @@
 
         .product-card:hover .product-image img {
             transform: scale(1.05);
+        }
+
+        /* Add shimmer effect to images on hover */
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.4) 50%,
+                transparent 70%
+            );
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            transition: transform 0.6s;
+            z-index: 1;
+        }
+
+        .product-card:hover .product-image::before {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
         }
 
         .product-info {
@@ -1038,38 +1092,60 @@
             box-shadow: var(--shadow);
         }
 
-        .instagram-post img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .instagram-post .instagram-overlay {
             position: absolute;
             top: 0;
             left: 0;
-        }
-
-        .instagram-post::after {
-            content: '❤️';
-            position: absolute;
-            font-size: 3rem;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255, 107, 157, 0.3), rgba(196, 69, 105, 0.5));
             opacity: 0;
-            transform: scale(0);
-            transition: all 0.3s;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
         }
 
-        .instagram-post:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-        }
-
-        .instagram-post:hover::after {
+        .instagram-post:hover .instagram-overlay {
             opacity: 1;
-            transform: scale(1);
         }
 
+        .instagram-post .like-icon {
+            font-size: 4rem;
+            transform: scale(0);
+            transition: transform 0.3s var(--transition-smooth);
+        }
+
+        .instagram-post:hover .like-icon {
+            transform: scale(1);
+            animation: heartBeat 0.5s ease;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(0.95); }
+            75% { transform: scale(1.1); }
+        }
+
+        /* Enhanced footer with gradient background */
         footer {
-            background: var(--dark);
+            background: linear-gradient(135deg, var(--dark) 0%, #1a252f 100%);
             color: white;
             padding: 4rem 5% 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
         }
 
         .footer-content {
@@ -1204,7 +1280,7 @@
             background: var(--cream);
             border-radius: 25px;
             text-align: center;
-            transition: all 0.4s;
+            transition: all 0.5s var(--transition-smooth);
             position: relative;
             overflow: hidden;
         }
@@ -1226,7 +1302,7 @@
         }
 
         .why-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-12px) scale(1.02);
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
             color: white;
         }
@@ -1312,6 +1388,12 @@
         .contact-method .icon {
             font-size: 3.5rem;
             margin-bottom: 1rem;
+            display: inline-block;
+            transition: transform 0.3s var(--transition-smooth);
+        }
+
+        .contact-method:hover .icon {
+            transform: scale(1.2) rotate(10deg);
         }
 
         .contact-method h3 {
@@ -1357,7 +1439,8 @@
         .form-group textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.1);
+            box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.15), 0 5px 15px rgba(255, 107, 157, 0.1);
+            transform: translateY(-2px);
         }
 
         .form-group textarea {
@@ -1415,6 +1498,18 @@
             transition: all 0.3s ease;
             color: white;
             font-size: 2.2rem;
+            position: relative;
+        }
+
+        .ai-button .notification-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 12px;
+            height: 12px;
+            background: #FF3B30;
+            border-radius: 50%;
+            border: 2px solid white;
             animation: pulse 2s ease-in-out infinite;
         }
 
@@ -1496,11 +1591,11 @@
         @keyframes messageSlide {
             from {
                 opacity: 0;
-                transform: translateY(15px);
+                transform: translateY(20px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -1600,31 +1695,6 @@
             transform: none;
         }
 
-        .quick-replies {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            padding: 0 1.5rem 1rem;
-        }
-
-        .quick-reply {
-            padding: 0.6rem 1.2rem;
-            background: white;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-
-        .quick-reply:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-
         /* Scroll Progress Bar */
         .scroll-progress {
             position: fixed;
@@ -1635,6 +1705,7 @@
             background: var(--gradient-1);
             z-index: 9999;
             transition: width 0.1s;
+            box-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
         }
 
         /* Toast Notifications */
@@ -1874,6 +1945,248 @@
                 font-size: 1.8rem;
             }
         }
+
+        /* Add prefers-reduced-motion support for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Enhanced print styles */
+        @media print {
+            .whatsapp-float,
+            .ai-assistant,
+            .back-to-top,
+            .scroll-progress,
+            nav {
+                display: none !important;
+            }
+        }
+
+        /* Enhanced WhatsApp Float with notification badge */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 999;
+        }
+
+        .whatsapp-float a {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #25D366, #20BA5A);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 35px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s var(--transition-smooth);
+            animation: pulse 2s ease-in-out infinite;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .whatsapp-float a::after {
+            content: 'Chat with us!';
+            position: absolute;
+            left: 85px;
+            background: var(--dark);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-10px);
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .whatsapp-float a:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .whatsapp-float a:hover {
+            transform: scale(1.15) rotate(-5deg);
+            box-shadow: 0 15px 50px rgba(37, 211, 102, 0.6);
+            animation: none;
+        }
+
+        /* Add back-to-top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s var(--transition-smooth);
+            z-index: 998;
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.5);
+        }
+
+        /* Better mobile menu animation */
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Add success checkmark animation */
+        @keyframes checkmark {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        .modal-content .icon {
+            animation: checkmark 0.6s var(--transition-smooth);
+        }
+
+        /* Better section dividers */
+        section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            opacity: 0.3;
+        }
+
+        #contact::after,
+        footer::after {
+            display: none;
+        }
+
+        /* Add verified badge to contact methods */
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        /* Add scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s var(--transition-smooth), transform 0.6s var(--transition-smooth);
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Add quick replies styles */
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            padding: 0 1.5rem 1rem;
+        }
+
+        .quick-reply {
+            padding: 0.6rem 1.2rem;
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .quick-reply:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced responsive for better mobile experience */
+        @media (max-width: 968px) {
+            /* ...existing code... */
+
+            .back-to-top {
+                bottom: 90px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+
+            .whatsapp-float a::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* ...existing code... */
+
+            .back-to-top {
+                bottom: 80px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* ...existing code... */
     </style>
 </head>
 <body>
@@ -1959,7 +2272,7 @@
             </div>
             <div class="hero-gallery">
                 <div class="gallery-item">
-                    <img src="./assets/flowers.jpg" alt="Wool Flowers">
+                                       <img src="./assets/flowers.jpg" alt="Wool Flowers">
                     <div class="gallery-item-overlay">Wool Flowers</div>
                 </div>
                 <div class="gallery-item">
@@ -2214,14 +2527,23 @@
         </div>
     </footer>
 
+    <!-- Enhanced WhatsApp Float with gradient background -->
     <div class="whatsapp-float">
-        <a href="https://wa.me/919013463956?text=Hi%20Crochetiya!%20I'm%20interested%20in%20your%20handmade%20wool%20products" target="_blank" title="Chat on WhatsApp">
+        <a href="https://wa.me/919013463956?text=Hi%20Crochetiya!%20I'm%20interested%20in%20your%20handmade%20wool%20products" target="_blank" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
             💬
         </a>
     </div>
 
+    <!-- Add back to top button -->
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="Back to top">
+        ↑
+    </div>
+
     <div class="ai-assistant">
-        <div class="ai-button" onclick="toggleChat()">🤖</div>
+        <div class="ai-button" onclick="toggleChat()" aria-label="Open AI Assistant">
+            🤖
+            <span class="notification-dot"></span>
+        </div>
         <div class="ai-chat" id="aiChat">
             <div class="ai-header">
                 <span>🧶 Crochetiya Assistant</span>
@@ -2265,7 +2587,9 @@
             const container = document.getElementById('particlesContainer');
             if (!container || window.innerWidth <= 968) return;
             
-            for (let i = 0; i < 12; i++) {
+            const particleCount = navigator.hardwareConcurrency > 4 ? 12 : 8;
+            
+            for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 const size = Math.random() * 80 + 40;
@@ -2287,531 +2611,31 @@
             scrollProgress.style.width = scrolled + '%';
         }
 
-        window.addEventListener('scroll', updateScrollProgress);
-
-        // Toast notification
-        function showToast(message, icon = '🎉', duration = 3000) {
-            const toast = document.getElementById('toast');
-            const toastIcon = toast.querySelector('.toast-icon');
-            const toastMessage = toast.querySelector('.toast-message');
-            
-            toastIcon.textContent = icon;
-            toastMessage.textContent = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => toast.classList.remove('show'), duration);
-        }
-
-        // Enhanced AI Knowledge Base with product recommendations
-        const aiKnowledge = {
-            greetings: {
-                patterns: ['hi', 'hello', 'hey', 'namaste', 'namaskar', 'good morning', 'good evening'],
-                responses: [
-                    "Namaste! 🙏 Welcome to Crochetiya! I'm thrilled you're here. How can I help you explore our handmade wool creations today?",
-                    "Hello! 💕 So happy to see you! I'm here to help you find the perfect wool creation. What interests you?",
-                    "Hey there! 🌸 Welcome to our wool wonderland! What would you like to know about our handmade products?"
-                ]
-            },
-            thanks: {
-                patterns: ['thank', 'thanks', 'appreciate', 'धन्यवाद', 'grateful'],
-                responses: [
-                    "You're very welcome! 😊 Feel free to ask anything else about our wool creations!",
-                    "My pleasure! 💕 I'm here anytime you need help. Happy browsing!",
-                    "Anytime! 🌸 Don't hesitate to reach out if you have more questions!"
-                ]
-            },
-            flowers: {
-                patterns: ['flower', 'bloom', 'floral', 'rose', 'bouquet', 'decoration', 'phool'],
-                response: "Our wool flowers are absolutely gorgeous! 🌺🌸 They're eternal blooms that never fade or wilt. Perfect for:\n\n✨ Home decoration (living room, bedroom)\n🎁 Gifts for loved ones\n💐 Wedding decorations\n🌸 Office desk charm\n\nAvailable in vibrant colors like red, pink, yellow, purple, and more! Each flower is hand-crafted with premium wool. Prices start from affordable rates. Want to see some designs? Check our Instagram @crochetiya or WhatsApp us at +91 9013463956! 📸"
-            },
-            toys: {
-                patterns: ['toy', 'teddy', 'bear', 'doll', 'kids', 'children', 'baby', 'stuffed', 'khilona'],
-                response: "Our handmade wool toys are super adorable! 🧸💕 Made with:\n\n✅ 100% child-safe materials\n✅ Soft premium wool\n✅ Love and care in every stitch\n\nPerfect for:\n👶 Babies (soft & safe)\n🎁 Birthday gifts\n🏠 Room decoration\n💝 Baby showers\n\nWe make teddies, rabbits, dolls, and custom characters! Each toy is unique. Prices vary by size. Message us on WhatsApp +91 9013463956 to discuss your ideas! 💬"
-            },
-            bags: {
-                patterns: ['bag', 'tote', 'purse', 'handbag', 'carry', 'shopping'],
-                response: "Our crochet bags are stylish and eco-friendly! 👜🌿\n\n💚 100% sustainable wool\n💪 Strong and durable\n🎨 Custom colors available\n✨ Unique handmade designs\n\nPerfect for:\n🛍️ Shopping trips\n📚 Book carriers\n🏖️ Beach outings\n🎁 Thoughtful gifts\n\nEach bag is carefully crafted to last. Prices depend on size and design complexity. Contact us on WhatsApp +91 9013463956 for custom orders!"
-            },
-            keychains: {
-                patterns: ['keychain', 'key ring', 'key holder', 'charm', 'accessories'],
-                response: "Our wool keychains are cute and colorful! 🔑✨\n\n🎨 Available in all colors\n💝 Perfect as gifts or party favors\n🎉 Great for return gifts\n✨ Lightweight and durable\n\nPopular designs:\n🐻 Animals (bear, bunny, cat)\n🌸 Flowers\n💗 Hearts\n🌈 Custom characters\n\nAffordable prices, bulk orders welcome! WhatsApp us at +91 9013463956 to place your order! 📱"
-            },
-            pricing: {
-                patterns: ['price', 'cost', 'how much', 'rate', 'kitna', 'kitne', 'paisa'],
-                response: "Great question! 💰 Our pricing varies based on:\n\n📏 Size and complexity\n🎨 Design details\n🧶 Materials used\n⏱️ Time required\n\nGeneral price ranges:\n🌸 Wool Flowers: Starting from ₹50-300\n🧸 Toys: Starting from ₹200-800\n👜 Bags: Starting from ₹300-1500\n🔑 Keychains: Starting from ₹30-150\n\n💬 For exact pricing, please WhatsApp us your requirements at +91 9013463956. We'll give you a fair quote! Bulk orders get special discounts! 🎉"
-            },
-            custom: {
-                patterns: ['custom', 'personalize', 'special', 'design', 'order', 'make', 'banao'],
-                response: "Yes! We LOVE custom orders! 🎨✨\n\nYou can customize:\n🎨 Colors (any shade you want!)\n📏 Size (small to large)\n💡 Design (your own ideas)\n🎁 Gift packaging\n✍️ Personalized touches\n\nHow it works:\n1️⃣ Share your idea with us\n2️⃣ We discuss design & pricing\n3️⃣ We create it with love\n4️⃣ You receive your unique piece!\n\n⏱️ Delivery time: 3-7 days (depending on complexity)\n\nReady to create something special? WhatsApp us at +91 9013463956! Let's bring your vision to life! 💕"
-            },
-            delivery: {
-                patterns: ['deliver', 'shipping', 'send', 'courier', 'bhejoge', 'milega'],
-                response: "We deliver all over India! 🚚📦\n\n✅ Safe packaging\n✅ Fast shipping\n✅ Tracking provided\n✅ Delivery to your doorstep\n\n📍 Shipping charges: Depends on location\n⏱️ Delivery time: 3-7 business days\n🌏 International shipping: Available on request\n\n💬 To confirm delivery details and charges for your location, please WhatsApp us at +91 9013463956 with your pincode!"
-            },
-            care: {
-                patterns: ['care', 'wash', 'clean', 'maintain', 'kaise rakhein'],
-                response: "Taking care of your wool products is easy! 🧼✨\n\n🌸 Wool Flowers:\n• Dust gently with soft cloth\n• Keep away from water\n• Store in dry place\n\n🧸 Toys:\n• Gentle hand wash if needed\n• Air dry completely\n• Avoid harsh chemicals\n\n👜 Bags:\n• Spot clean with damp cloth\n• Air dry naturally\n• Store in cool, dry place\n\n💡 Pro tip: Wool items last years with proper care! They're durable and eco-friendly. Any specific care questions? Feel free to ask! 💕"
-            },
-            contact: {
-                patterns: ['contact', 'reach', 'call', 'message', 'whatsapp', 'email', 'sampark'],
-                response: "I'm so glad you want to connect! 📱💕\n\nContact us here:\n\n📞 WhatsApp: +91 9013463956 (Quick response!)\n✉️ Email: anuanushkasharma3613@gmail.com\n📸 Instagram: @crochetiya (See our latest work!)\n\n💬 Best way: WhatsApp us! We usually respond within a few hours. We're excited to hear from you! 🌸"
-            },
-            bestSellers: {
-                patterns: ['best seller', 'popular', 'trending', 'most bought', 'favorite'],
-                response: "Our best sellers this month! 🌟\n\n",
-                products: [
-                    { name: "Rose Bouquet", emoji: "🌹", price: "₹250" },
-                    { name: "Teddy Bear", emoji: "🧸", price: "₹500" },
-                    { name: "Mini Tote Bag", emoji: "👜", price: "₹800" }
-                ]
-            },
-            newArrivals: {
-                patterns: ['new', 'latest', 'recent', 'just added', 'what\'s new'],
-                response: "Check out our newest creations! ✨\n\n",
-                products: [
-                    { name: "Sunflower Bouquet", emoji: "🌻", price: "₹300" },
-                    { name: "Bunny Keychain", emoji: "🐰", price: "₹80" },
-                    { name: "Crochet Clutch", emoji: "👛", price: "₹600" }
-                ]
-            },
-            giftIdeas: {
-                patterns: ['gift', 'present', 'birthday', 'anniversary', 'occasion'],
-                response: "Perfect gift ideas for your loved ones! 🎁\n\n✨ For Mom: Wool flower bouquet\n💕 For Kids: Soft toys collection\n👜 For Her: Crochet bag set\n🔑 For Friends: Cute keychains\n🎨 Custom: Personalized creations\n\nAll come with beautiful gift packaging! Want specific recommendations? Let me know the occasion! 💝"
-            },
-            bulkOrders: {
-                patterns: ['bulk', 'wholesale', 'large order', 'many', 'quantity'],
-                response: "We love bulk orders! 📦✨\n\n💰 Special discounts available:\n• 10+ items: 10% off\n• 25+ items: 15% off\n• 50+ items: 20% off\n\n✅ Perfect for:\n🎉 Events & parties\n🏢 Corporate gifts\n💒 Wedding favors\n🎂 Birthday return gifts\n\n⏱️ Lead time: 7-14 days\n📦 Free shipping on orders above ₹5000\n\nWhatsApp us at +91 9013463956 for a customized quote! 💬"
-            }
-        };
-
-        // AI Chat Functions
-        function toggleChat() {
-            const chatBox = document.getElementById('aiChat');
-            chatBox.classList.toggle('active');
-
-            if (chatBox.classList.contains('active')) {
-                document.getElementById('aiInput').focus();
-            }
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('aiInput');
-            const message = input.value.trim();
-            
-            if (!message) return;
-            
-            addMessage(message, 'user');
-            input.value = '';
-            
-            showTyping();
-            setTimeout(() => {
-                const response = getAIResponse(message);
-                hideTyping();
-                
-                if (response.products) {
-                    addMessage(response.text, 'bot');
-                    response.products.forEach(product => {
-                        addProductSuggestion(product);
-                    });
-                } else {
-                    addMessage(response, 'bot');
-                }
-            }, 1000 + Math.random() * 1000);
-        }
-
-        function sendQuickReply(message) {
-            document.getElementById('aiInput').value = message;
-            sendMessage();
-        }
-
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
-
-        function addMessage(text, sender) {
-            const messagesContainer = document.getElementById('aiMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `ai-message ${sender}`;
-            messageDiv.textContent = text;
-            messagesContainer.appendChild(messageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-
-        function showTyping() {
-            document.getElementById('aiTyping').classList.add('active');
-            const messages = document.getElementById('aiMessages');
-            messages.scrollTop = messages.scrollHeight;
-        }
-
-        function hideTyping() {
-            document.getElementById('aiTyping').classList.remove('active');
-        }
-
-        // Initialize on load
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-                createParticles();
-                showToast('Welcome to Crochetiya! 🌸', '👋');
-            }, 1200);
-        });
-
-        // Enhanced AI response with product recommendations
-        function getAIResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            
-            // Check for product recommendation requests
-            if (lowerMessage.includes('best seller') || lowerMessage.includes('popular')) {
-                return {
-                    text: aiKnowledge.bestSellers.response,
-                    products: aiKnowledge.bestSellers.products
-                };
-            }
-            
-            if (lowerMessage.includes('new') || lowerMessage.includes('latest')) {
-                return {
-                    text: aiKnowledge.newArrivals.response,
-                    products: aiKnowledge.newArrivals.products
-                };
-            }
-            
-            for (const [category, data] of Object.entries(aiKnowledge)) {
-                if (category === 'default') continue;
-                
-                const patterns = data.patterns || [];
-                for (const pattern of patterns) {
-                    if (lowerMessage.includes(pattern)) {
-                        if (data.responses) {
-                            return data.responses[Math.floor(Math.random() * data.responses.length)];
-                        }
-                        return data.response;
-                    }
-                }
-            }
-            
-            return aiKnowledge.default.responses[Math.floor(Math.random() * aiKnowledge.default.responses.length)];
-        }
-
-        // Mobile Menu Functions
-        function toggleMobileMenu() {
-            const navMenu = document.getElementById('navMenu');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            navMenu.classList.toggle('active');
-            menuBtn.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            if (navMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        }
-
-        function closeMenu() {
-            const navMenu = document.getElementById('navMenu');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            navMenu.classList.remove('active');
-            menuBtn.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Navbar scroll effect
+        // Enhanced Back to Top functionality
+        const backToTop = document.getElementById('backToTop');
+        
         window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+            updateScrollProgress();
+            
+            if (backToTop && window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else if (backToTop) {
+                backToTop.classList.remove('visible');
             }
         });
 
-        // Smooth scrolling for anchor links
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const href = this.getAttribute('href');
-                    if (href !== '#' && href.length > 1) {
-                        e.preventDefault();
-                        const target = document.querySelector(href);
-                        if (target) {
-                            closeMenu();
-                            const navHeight = document.getElementById('navbar').offsetHeight;
-                            const targetPosition = target.offsetTop - navHeight;
-                            window.scrollTo({
-                                top: targetPosition,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
-                });
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
-        });
-
-        // Contact Form Handler
-        document.addEventListener('DOMContentLoaded', function() {
-            const contactForm = document.getElementById('contactForm');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const formData = new FormData(this);
-                    const data = {};
-                    formData.forEach((value, key) => {
-                        data[key] = value;
-                    });
-                    
-                    // Show success modal
-                    document.getElementById('successModal').classList.add('active');
-                    
-                    // Reset form
-                    this.reset();
-                    
-                    // Optional: Send to WhatsApp
-                    const whatsappMessage = `New Inquiry from Website!\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || 'Not provided'}\nInterested in: ${data.product}\nMessage: ${data.message}`;
-                    const whatsappUrl = `https://wa.me/919013463956?text=${encodeURIComponent(whatsappMessage)}`;
-                    
-                    // Open WhatsApp in new tab after 2 seconds
-                    setTimeout(() => {
-                        window.open(whatsappUrl, '_blank');
-                    }, 2000);
-                });
-            }
-        });
-
-        function closeModal() {
-            document.getElementById('successModal').classList.remove('active');
-        }
-
-        // Close modal when clicking outside
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('successModal');
-            if (modal) {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        closeModal();
-                    }
-                });
-            }
-        });
-
-        // Image Loading Handler
-        document.addEventListener('DOMContentLoaded', function() {
-            const images = document.querySelectorAll('img');
-            
-            images.forEach(img => {
-                // Check if image is already loaded
-                if (img.complete && img.naturalHeight !== 0) {
-                    img.classList.add('loaded');
-                } else {
-                    img.addEventListener('load', function() {
-                        this.classList.add('loaded');
-                    });
-                }
-            });
-        });
-
-        // Intersection Observer for scroll animations
-        document.addEventListener('DOMContentLoaded', function() {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {  // FIXED: Added parentheses around 'entry'
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            // Observe all cards and sections
-            const elements = document.querySelectorAll('.product-card, .why-card, .instagram-post, .gallery-item');
-            elements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-        });
-
-        // Prevent zoom on double tap for iOS
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function(event) {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const navMenu = document.getElementById('navMenu');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            const navbar = document.getElementById('navbar');
-            
-            if (navMenu && navMenu.classList.contains('active')) {
-                if (!navbar.contains(event.target)) {
-                    closeMenu();
-                }
-            }
-        });
-
-        // Close AI chat when clicking outside
-        document.addEventListener('click', function(event) {
-            const aiChat = document.getElementById('aiChat');
-            const aiAssistant = document.querySelector('.ai-assistant');
-            
-            if (aiChat && aiChat.classList.contains('active')) {
-                if (!aiAssistant.contains(event.target)) {
-                    aiChat.classList.remove('active');
-                }
-            }
-        });
-
-        // Prevent chat from closing when clicking inside
-        document.addEventListener('DOMContentLoaded', function() {
-            const aiChat = document.getElementById('aiChat');
-            if (aiChat) {
-                aiChat.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-            }
-        });
-
-        // Handle orientation change for mobile
-        window.addEventListener('orientationchange', function() {
-            const aiChat = document.getElementById('aiChat');
-            if (aiChat && aiChat.classList.contains('active')) {
-                // Recalculate chat dimensions after orientation change
-                setTimeout(function() {
-                    aiChat.style.maxHeight = 'calc(100vh - 140px)';
-                }, 200);
-            }
-        });
-
-        // Adjust chat height on mobile keyboard open
-        if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', function() {
-                const aiChat = document.getElementById('aiChat');
-                if (aiChat && aiChat.classList.contains('active')) {
-                    const viewportHeight = window.visualViewport.height;
-                    if (window.innerWidth <= 480) {
-                        aiChat.style.height = Math.min(viewportHeight * 0.7, 500) + 'px';
-                    }
-                }
-            });
-        }
-
-        // Console welcome message
-        console.log('%c🧶 Welcome to Crochetiya! 🌸', 'color: #FF6B9D; font-size: 20px; font-weight: bold;');
-        console.log('%cHandmade with Love ❤️', 'color: #C44569; font-size: 14px;');
-        console.log('%cInterested in our code or want to collaborate? Reach out! 💕', 'color: #666; font-size: 12px;');
-
-        // Service Worker Registration (Optional - for PWA capabilities)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                // Uncomment below if you want PWA functionality
-                // navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                //     console.log('ServiceWorker registration successful');
-                // }, function(err) {
-                //     console.log('ServiceWorker registration failed: ', err);
-                // });
-            });
-        }
-
-        // Add mobile menu button active state toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                });
-            }
-        });
-
-        // Initialize
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-                createParticles();
-                showToast('Welcome to Crochetiya! 🌸', '👋');
-            }, 1200);
-        });
-
-        // 3D tilt effect for product cards
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.product-card');
-            
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    const rotateX = (y - centerY) / 10;
-                    const rotateY = (centerX - x) / 10;
-                    
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px)`;
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-                });
-            });
-        });
-    </script>
-</body>
-</html>
-            
-            for (let i = 0; i < 15; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.width = Math.random() * 100 + 50 + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = Math.random() * 10 + 15 + 's';
-                container.appendChild(particle);
-            }
-        }
-
-        // Scroll progress bar
-        function updateScrollProgress() {
-            const scrollProgress = document.getElementById('scrollProgress');
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrolled = (window.scrollY / scrollHeight) * 100;
-            scrollProgress.style.width = scrolled + '%';
-        }
-
-        // Cursor trail effect
-        let cursorTrails = [];
-        function createCursorTrail(e) {
-            if (window.innerWidth <= 968) return; // Disable on mobile
-            
-            const trail = document.getElementById('cursorTrail').cloneNode(true);
-            trail.style.left = e.clientX + 'px';
-            trail.style.top = e.clientY + 'px';
-            trail.style.opacity = '0.6';
-            document.body.appendChild(trail);
-            
-            setTimeout(() => {
-                trail.style.opacity = '0';
-                setTimeout(() => trail.remove(), 300);
-            }, 100);
         }
 
         // Toast notification
         function showToast(message, icon = '🎉', duration = 3000) {
             const toast = document.getElementById('toast');
+            if (!toast) return;
+            
             const toastIcon = toast.querySelector('.toast-icon');
             const toastMessage = toast.querySelector('.toast-message');
             
@@ -2903,16 +2727,28 @@
             bulkOrders: {
                 patterns: ['bulk', 'wholesale', 'large order', 'many', 'quantity'],
                 response: "We love bulk orders! 📦✨\n\n💰 Special discounts available:\n• 10+ items: 10% off\n• 25+ items: 15% off\n• 50+ items: 20% off\n\n✅ Perfect for:\n🎉 Events & parties\n🏢 Corporate gifts\n💒 Wedding favors\n🎂 Birthday return gifts\n\n⏱️ Lead time: 7-14 days\n📦 Free shipping on orders above ₹5000\n\nWhatsApp us at +91 9013463956 for a customized quote! 💬"
+            },
+            default: {
+                responses: [
+                    "I'd love to help! 🌸 Could you please be more specific? You can ask me about:\n\n🌺 Our products (flowers, toys, bags, keychains)\n💰 Pricing\n🎨 Custom orders\n📦 Delivery\n🎁 Gift ideas\n\nWhat interests you?",
+                    "I'm here to assist! 💕 Try asking about:\n• Product details\n• Customization options\n• Pricing & discounts\n• Order & delivery\n• Gift recommendations\n\nWhat would you like to know?",
+                    "Happy to help! ✨ You can ask me about our wool flowers, toys, bags, keychains, custom orders, pricing, or delivery. What can I tell you about?"
+                ]
             }
         };
 
         // AI Chat Functions
         function toggleChat() {
             const chatBox = document.getElementById('aiChat');
+            const notificationDot = document.querySelector('.notification-dot');
+            
             chatBox.classList.toggle('active');
 
             if (chatBox.classList.contains('active')) {
                 document.getElementById('aiInput').focus();
+                if (notificationDot) {
+                    notificationDot.style.display = 'none';
+                }
             }
         }
 
@@ -2929,15 +2765,7 @@
             setTimeout(() => {
                 const response = getAIResponse(message);
                 hideTyping();
-                
-                if (response.products) {
-                    addMessage(response.text, 'bot');
-                    response.products.forEach(product => {
-                        addProductSuggestion(product);
-                    });
-                } else {
-                    addMessage(response, 'bot');
-                }
+                addMessage(response, 'bot');
             }, 1000 + Math.random() * 1000);
         }
 
@@ -2962,47 +2790,219 @@
         }
 
         function showTyping() {
-            document.getElementById('aiTyping').classList.add('active');
-            const messages = document.getElementById('aiMessages');
-            messages.scrollTop = messages.scrollHeight;
+            const typing = document.getElementById('aiTyping');
+            if (typing) {
+                typing.classList.add('active');
+                const messages = document.getElementById('aiMessages');
+                messages.scrollTop = messages.scrollHeight;
+            }
         }
 
         function hideTyping() {
-            document.getElementById('aiTyping').classList.remove('active');
+            const typing = document.getElementById('aiTyping');
+            if (typing) {
+                typing.classList.remove('active');
+            }
         }
 
-        // Initialize on load
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-                createParticles();
-                showToast('Welcome to Crochetiya! 🌸', '👋');
-            }, 1200);
-        });
-
-        // Enhanced AI response with product recommendations
+        // Enhanced AI response
         function getAIResponse(message) {
             const lowerMessage = message.toLowerCase();
-            
-            // Check for product recommendation requests
-            if (lowerMessage.includes('best seller') || lowerMessage.includes('popular')) {
-                return {
-                    text: aiKnowledge.bestSellers.response,
-                    products: aiKnowledge.bestSellers.products
-                };
-            }
-            
-            if (lowerMessage.includes('new') || lowerMessage.includes('latest')) {
-                return {
-                    text: aiKnowledge.newArrivals.response,
-                    products: aiKnowledge.newArrivals.products
-                };
-            }
             
             for (const [category, data] of Object.entries(aiKnowledge)) {
                 if (category === 'default') continue;
                 
                 const patterns = data.patterns || [];
+                for (const pattern of patterns) {
+                    if (lowerMessage.includes(pattern)) {
+                        if (data.responses) {
+                            return data.responses[Math.floor(Math.random() * data.responses.length)];
+                        }
+                        return data.response;
+                    }
+                }
+            }
+            
+            return aiKnowledge.default.responses[Math.floor(Math.random() * aiKnowledge.default.responses.length)];
+        }
+
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            navMenu.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+            
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function closeMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            navMenu.classList.remove('active');
+            menuBtn.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (navbar && window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else if (navbar) {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Enhanced scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const elements = document.querySelectorAll('.product-card, .why-card, .instagram-post, .gallery-item');
+            elements.forEach(el => {
+                el.classList.add('animate-on-scroll');
+                observer.observe(el);
+            });
+        });
+
+        // Enhanced Instagram posts with overlay
+        document.addEventListener('DOMContentLoaded', function() {
+            const instagramPosts = document.querySelectorAll('.instagram-post');
+            instagramPosts.forEach(post => {
+                if (!post.querySelector('.instagram-overlay')) {
+                    const overlay = document.createElement('div');
+                    overlay.className = 'instagram-overlay';
+                    overlay.innerHTML = '<div class="like-icon">❤️</div>';
+                    post.appendChild(overlay);
+                }
+            });
+        });
+
+        // Smooth scrolling
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#' && href.length > 1) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            closeMenu();
+                            const navHeight = document.getElementById('navbar').offsetHeight;
+                            const targetPosition = target.offsetTop - navHeight;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+
+        // Contact Form Handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const data = {};
+                    formData.forEach((value, key) => {
+                        data[key] = value;
+                    });
+                    
+                    document.getElementById('successModal').classList.add('active');
+                    
+                    this.reset();
+                    
+                    const whatsappMessage = `New Inquiry from Website!\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || 'Not provided'}\nInterested in: ${data.product}\nMessage: ${data.message}`;
+                    const whatsappUrl = `https://wa.me/919013463956?text=${encodeURIComponent(whatsappMessage)}`;
+                    
+                    setTimeout(() => {
+                        window.open(whatsappUrl, '_blank');
+                    }, 2000);
+                });
+            }
+        });
+
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        // Image Loading
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            
+            images.forEach(img => {
+                if (img.complete && img.naturalHeight !== 0) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', function() {
+                        this.classList.add('loaded');
+                    });
+                    
+                    img.addEventListener('error', function() {
+                        this.classList.add('error');
+                    });
+                }
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                const aiChat = document.getElementById('aiChat');
+                if (aiChat && aiChat.classList.contains('active')) {
+                    toggleChat();
+                }
+            }
+            
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                toggleChat();
+            }
+        });
+
+        // Initialize
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                if (loader) {
+                    loader.classList.add('hidden');
+                }
+                createParticles();
+                showToast('Welcome to Crochetiya! 🌸', '👋', 4000);
+            }, 1200);
+        });
+
+        // Console message
+        console.log('%c🧶 Welcome to Crochetiya! 🌸', 'color: #FF6B9D; font-size: 20px; font-weight: bold;');
+        console.log('%cHandmade with Love ❤️', 'color: #C44569; font-size: 14px;');
+    </script>
+</body>
+</html>
                 for (const pattern of patterns) {
                     if (lowerMessage.includes(pattern)) {
                         if (data.responses) {
