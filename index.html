@@ -1179,186 +1179,499 @@
             font-size: 1.2rem;
         }
 
-        /* Animations */
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 10px 35px rgba(255, 107, 157, 0.4);
-            }
-            50% {
-                box-shadow: 0 10px 45px rgba(255, 107, 157, 0.6);
-            }
-            100% {
-                box-shadow: 0 10px 35px rgba(255, 107, 157, 0.4);
-            }
+        /* Add missing hero and product styles */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #FFF5E9 0%, #FFE8F0 50%, #E8F5FF 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 5% 4rem;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero::before {
+            content: '🧶';
+            position: absolute;
+            font-size: 25rem;
+            opacity: 0.03;
+            animation: float 25s ease-in-out infinite;
+            top: 10%;
+            left: -10%;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .hero::after {
+            content: '🌸';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.03;
+            animation: float 30s ease-in-out infinite reverse;
+            bottom: 10%;
+            right: -10%;
         }
 
-        /* Mobile Responsive */
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(50px, -50px) rotate(10deg); }
+            66% { transform: translate(-30px, 30px) rotate(-5deg); }
         }
 
+        .hero-content {
+            max-width: 1400px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+            font-weight: 900;
+        }
+
+        .hero-text .hindi {
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            animation: fadeInUp 1s ease 0.1s both;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 1.1rem 2.8rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 45px rgba(255, 107, 157, 0.4);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            background: #20BA5A;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 45px rgba(37, 211, 102, 0.4);
+        }
+
+        .hero-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            animation: fadeIn 1.5s ease;
+            position: relative;
+        }
+
+        /* Product Grid Styles */
+        section {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        #products {
+            background: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--cream);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.18);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.7rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .product-info p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .product-pricing {
+            margin: 1rem 0;
+        }
+
+        .price-display {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .size-selector {
+            margin-bottom: 1rem;
+        }
+
+        .size-selector label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .size-option {
+            padding: 0.5rem 1rem;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .size-option.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+        }
+
+        /* Gallery Grid Styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Why Us Grid */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .why-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+        }
+
+        .why-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .why-card .icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .why-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .why-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Mobile responsiveness */
         @media (max-width: 768px) {
-            .cart-sidebar {
-                width: 100%;
-                right: -100%;
-                border-left: none;
-                border-top: 4px solid var(--primary);
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
             }
 
-            .cart-button {
-                right: 15px;
-                bottom: 80px;
-                width: 55px;
-                height: 55px;
-                font-size: 1.6rem;
+            .hero-text h1 {
+                font-size: 3rem;
             }
 
-            .cart-item {
-                padding: 1rem;
-                gap: 0.8rem;
+            .hero-text .hindi {
+                font-size: 2rem;
             }
 
-            .cart-item img, .cart-item .image-placeholder {
-                width: 50px;
-                height: 50px;
-                min-width: 50px;
+            .hero-text p {
+                font-size: 1.1rem;
             }
 
-            .cart-item-name {
-                font-size: 0.9rem;
+            .cta-buttons {
+                justify-content: center;
             }
 
-            .cart-item-price {
-                font-size: 1rem;
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
             }
 
-            .quantity-controls {
-                gap: 0.3rem;
-                margin-top: 0.5rem;
-            }
-
-            .quantity-btn {
-                width: 28px;
-                height: 28px;
-                font-size: 0.9rem;
-            }
-
-            .quantity-display {
-                min-width: 30px;
-                font-size: 0.9rem;
-                padding: 0.2rem 0.4rem;
-            }
-
-            .remove-item {
-                padding: 0.3rem 0.6rem;
-                font-size: 0.75rem;
-                margin-left: 0.5rem;
-            }
-
-            .cart-header {
-                padding: 1.5rem;
-            }
-
-            .cart-header h3 {
-                font-size: 1.3rem;
-            }
-
-            .cart-footer {
-                padding: 1.5rem;
-            }
-
-            .cart-total {
-                font-size: 1.2rem;
-            }
-
-            .checkout-btn {
-                padding: 1rem;
-                font-size: 1rem;
-            }
-
-            .mobile-menu-btn {
-                display: flex;
-            }
-
-            nav ul {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(15px);
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: center;
-                padding: 2rem 0;
-                transition: left 0.3s ease;
+            .why-grid {
+                grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
 
-            nav ul.active {
-                left: 0;
-            }
-
-            .mobile-menu-btn.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-
-            .mobile-menu-btn.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .mobile-menu-btn.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(7px, -6px);
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
             }
         }
 
-        @media (max-width: 480px) {
-            .cart-sidebar {
-                width: 100vw;
-                right: -100vw;
-            }
+        /* Mobile Menu Styles */
+        nav ul {
+            position: fixed;
+            top: 80px;
+            left: -100%;
+            width: 100%;
+            height: calc(100vh - 80px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 2rem 0;
+            transition: left 0.3s ease;
+            gap: 1.5rem;
+        }
 
-            .cart-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.8rem;
-            }
+        nav ul.active {
+            left: 0;
+        }
 
-            .cart-item-info {
-                width: 100%;
-            }
+        .mobile-menu-btn {
+            display: flex;
+        }
 
-            .quantity-controls {
-                justify-content: space-between;
-                width: 100%;
-            }
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
 
-            .remove-item {
-                margin-left: 0;
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Success Modal Styles */
+        #successModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 4000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #successModal .modal-content {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            animation: modalAppear 0.3s ease;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -1408,8 +1721,8 @@
         <span class="cart-count" id="cartCount">0</span>
     </div>
 
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cartSidebar"></div>
+    <!-- FIXED Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h3>🛒 Your Cart</h3>
             <button class="cart-close" onclick="toggleCart()">×</button>
@@ -1435,86 +1748,214 @@
     <!-- Checkout Modal -->
     <div class="checkout-modal" id="checkoutModal">
         <div class="checkout-content">
-            <h2>Checkout</h2>
+            <h2>🛍️ Checkout</h2>
             <div class="order-summary" id="orderSummary">
                 <!-- Order summary will be populated by JavaScript -->
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" placeholder="Your Name" required>
+                    <label for="customerName">Name *</label>
+                    <input type="text" id="customerName" placeholder="Your Full Name" required>
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="tel" id="phone" placeholder="Your Phone Number" required>
+                    <label for="customerPhone">Phone *</label>
+                    <input type="tel" id="customerPhone" placeholder="Your Phone Number" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="address">Address</label>
-                <textarea id="address" rows="3" placeholder="Your Address" required></textarea>
+                <label for="customerAddress">Delivery Address *</label>
+                <textarea id="customerAddress" rows="3" placeholder="Your Complete Address" required></textarea>
             </div>
-            <button class="checkout-btn" id="placeOrderBtn">
-                ✔️ Place Order
-            </button>
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                <button class="checkout-btn" onclick="closeCheckoutModal()" style="background: #6c757d;">
+                    ❌ Cancel
+                </button>
+                <button class="checkout-btn" id="placeOrderBtn" onclick="placeOrder()">
+                    ✅ Place Order
+                </button>
+            </div>
         </div>
     </div>
 
+    <!-- Hero Section -->
     <div class="hero" id="home">
         <div class="hero-content">
             <div class="hero-text">
                 <h1>Handmade Wool Creations</h1>
                 <div class="hindi">क्रोशिया</div>
-                <p>Discover the beauty of handmade crochet products. From vibrant flowers to adorable toys, each piece is crafted with love.</p>
+                <p>Discover the beauty of handmade crochet products. From vibrant flowers to adorable toys, each piece is crafted with love and premium materials.</p>
                 <div class="cta-buttons">
                     <a href="#products" class="btn btn-primary">🛍️ Shop Now</a>
                     <a href="https://wa.me/919013463956?text=Hi%20Crochetiya!%20I'm%20interested%20in%20your%20handmade%20wool%20products" target="_blank" class="btn btn-whatsapp">💬 Order via WhatsApp</a>
                 </div>
             </div>
-            <div class="hero-gallery" id="productsGrid">
-                <!-- Product cards will be populated by JavaScript -->
+            <div class="hero-gallery" id="heroGallery">
+                <!-- Hero gallery items will be populated by JavaScript -->
             </div>
         </div>
     </div>
 
-    <section id="why" style="padding: 6rem 5%; position: relative;">
-        <div class="section-header" style="text-align: center; margin-bottom: 4rem; animation: fadeInUp 0.8s ease;">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 1rem; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900;">Why Choose Us?</h2>
-            <p style="font-size: 1.2rem; color: #666; max-width: 700px; margin: 0 auto; line-height: 1.8;">We offer unique, handcrafted wool products that are not only beautiful but also made with the utmost care and quality materials. Our creations are designed to bring joy and warmth to your life.</p>
+    <!-- Products Section -->
+    <section id="products">
+        <div class="section-header">
+            <h2>Our Products</h2>
+            <p>Explore our beautiful collection of handmade crochet items, each crafted with love and attention to detail.</p>
+        </div>
+        <div class="products-grid" id="productsGrid">
+            <!-- Product cards will be populated by JavaScript -->
         </div>
     </section>
 
-    <section id="instagram" style="padding: 6rem 5%; position: relative;"></section>
-        <div class="section-header" style="text-align: center; margin-bottom: 4rem; animation: fadeInUp 0.8s ease;">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 1rem; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900;">Gallery</h2>
-            <p style="font-size: 1.2rem; color: #666; max-width: 700px; margin: 0 auto; line-height: 1.8;">Explore our range of handmade products, from vibrant flowers to cozy toys and stylish bags. Each piece is a testament to our craftsmanship and attention to detail.</p>
+    <!-- Why Choose Us Section -->
+    <section id="why" style="background: var(--cream);">
+        <div class="section-header">
+            <h2>Why Choose Us?</h2>
+            <p>We offer unique, handcrafted wool products that are not only beautiful but also made with the utmost care and quality materials.</p>
+        </div>
+        <div class="why-grid">
+            <div class="why-card">
+                <div class="icon">🧶</div>
+                <h3>Handmade Quality</h3>
+                <p>Each piece is carefully crafted by hand using premium wool and materials, ensuring unique and durable products.</p>
+            </div>
+            <div class="why-card">
+                <div class="icon">💝</div>
+                <h3>Perfect Gifts</h3>
+                <p>Our creations make wonderful gifts for loved ones, adding a personal touch to any special occasion.</p>
+            </div>
+            <div class="why-card">
+                <div class="icon">🌟</div>
+                <h3>Custom Orders</h3>
+                <p>We accept custom orders and can create personalized items according to your specific requirements and preferences.</p>
+            </div>
+            <div class="why-card">
+                <div class="icon">🚚</div>
+                <h3>Fast Delivery</h3>
+                <p>Quick and reliable delivery across India, with careful packaging to ensure your items reach you in perfect condition.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="instagram">
+        <div class="section-header">
+            <h2>Gallery</h2>
+            <p>Explore our range of handmade products, from vibrant flowers to cozy toys and stylish bags.</p>
         </div>
         <div class="gallery-grid" id="galleryGrid">
-            <!-- Instagram posts will be populated by JavaScript -->
+            <!-- Gallery items will be populated by JavaScript -->
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="https://www.instagram.com/crochetiya/" target="_blank" style="display: inline-block; margin-top: 2rem; padding: 1rem 2rem; background: linear-gradient(135deg, #E1306C, #F56040); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; transition: all 0.3s; box-shadow: 0 10px 30px rgba(225, 48, 108, 0.3);">
+                📸 Follow us on Instagram
+            </a>
         </div>
     </section>
 
-    <section id="contact" style="padding: 6rem 5%; position: relative;">
-        <div class="section-header" style="text-align: center; margin-bottom: 4rem; animation: fadeInUp 0.8s ease;">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 1rem; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900;">Contact Us</h2>
-            <p style="font-size: 1.2rem; color: #666; max-width: 700px; margin: 0 auto; line-height: 1.8;">We would love to hear from you! Whether you have a question about our products, pricing, or anything else, feel free to reach out.</p>
+    <!-- Contact Section -->
+    <section id="contact" style="background: white;">
+        <div class="section-header">
+            <h2>Contact Us</h2>
+            <p>We would love to hear from you! Whether you have questions about our products or want to place a custom order.</p>
         </div>
-        <div class="contact-form" style="max-width: 600px; margin: 0 auto;">
-            <input type="text" id="contactName" placeholder="Your Name" style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; margin-bottom: 1rem;">
-            <input type="email" id="contactEmail" placeholder="Your Email" style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; margin-bottom: 1rem;">
-            <textarea id="contactMessage" rows="4" placeholder="Your Message" style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; margin-bottom: 1rem;"></textarea>
-            <button class="btn btn-primary" style="width: 100%; padding: 1rem; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s;">
-                📬 Send Message
-            </button>
+        <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <a href="tel:+919013463956" style="text-align: center; padding: 2rem 1.5rem; background: var(--cream); border-radius: 20px; transition: all 0.3s; cursor: pointer; text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 140px;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📞</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--dark);">Call Us</h3>
+                    <p style="color: #666; margin: 0.2rem 0;">+91 90134 63956</p>
+                </a>
+                <a href="https://wa.me/919013463956" target="_blank" style="text-align: center; padding: 2rem 1.5rem; background: var(--cream); border-radius: 20px; transition: all 0.3s; cursor: pointer; text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 140px;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">💬</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--dark);">WhatsApp</h3>
+                    <p style="color: #666; margin: 0.2rem 0;">Quick Response</p>
+                </a>
+                <a href="mailto:anuanushkasharma3613@gmail.com" style="text-align: center; padding: 2rem 1.5rem; background: var(--cream); border-radius: 20px; transition: all 0.3s; cursor: pointer; text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 140px;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📧</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--dark);">Email</h3>
+                    <p style="color: #666; margin: 0.2rem 0;">anuanushkasharma3613@gmail.com</p>
+                </a>
+            </div>
+            <form id="contactForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark);">Name *</label>
+                    <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 1rem 1.5rem; border: 2px solid #E0E0E0; border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 1rem; transition: all 0.3s; background: white;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark);">Email *</label>
+                    <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 1rem 1.5rem; border: 2px solid #E0E0E0; border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 1rem; transition: all 0.3s; background: white;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark);">Phone</label>
+                    <input type="tel" name="phone" placeholder="Your Phone Number" style="width: 100%; padding: 1rem 1.5rem; border: 2px solid #E0E0E0; border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 1rem; transition: all 0.3s; background: white;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark);">Product Interest</label>
+                    <select name="product" style="width: 100%; padding: 1rem 1.5rem; border: 2px solid #E0E0E0; border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 1rem; transition: all 0.3s; background: white;">
+                        <option value="">Select a product</option>
+                        <option value="Custom Keychain">Custom Keychain</option>
+                        <option value="Soft Toys">Soft Toys</option>
+                        <option value="Bags">Bags</option>
+                        <option value="Custom Order">Custom Order</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark);">Message *</label>
+                    <textarea name="message" rows="4" placeholder="Your Message" required style="width: 100%; padding: 1rem 1.5rem; border: 2px solid #E0E0E0; border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 1rem; transition: all 0.3s; background: white; resize: vertical; min-height: 120px;"></textarea>
+                </div>
+                <button type="submit" style="width: 100%; padding: 1.2rem; background: var(--gradient-1); color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    📬 Send Message
+                </button>
+            </form>
         </div>
     </section>
 
-    <footer style="background: var(--dark); color: white; padding: 3rem 5%; text-align: center;">
-        <div style="margin-bottom: 2rem;">
-            <a href="https://www.instagram.com/crochetiya/" target="_blank" style="color: white; font-size: 1.5rem; margin-right: 1.5rem;">Instagram</a>
-            <a href="https://wa.me/919013463956?text=Hi%20Crochetiya!%20I'm%20interested%20in%20your%20handmade%20wool%20products" target="_blank" class="whatsapp-nav" style="color: white; font-size: 1.5rem;">WhatsApp</a>
+    <!-- Footer -->
+    <footer style="background: var(--dark); color: white; padding: 4rem 5% 2rem; margin-top: 6rem;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            <div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem; color: var(--secondary);">Crochetiya</h3>
+                <p style="margin-bottom: 0.5rem; opacity: 0.8;">Handmade wool creations crafted with love and care. From beautiful flowers to adorable toys, each piece tells a unique story.</p>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <a href="https://www.instagram.com/crochetiya/" target="_blank" style="display: inline-block; width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: all 0.3s; color: white; text-decoration: none;">📸</a>
+                    <a href="https://wa.me/919013463956" target="_blank" style="display: inline-block; width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: all 0.3s; color: white; text-decoration: none;">💬</a>
+                </div>
+            </div>
+            <div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem; color: var(--secondary);">Quick Links</h3>
+                <p style="margin-bottom: 0.5rem; opacity: 0.8;"><a href="#home" style="color: white; text-decoration: none; transition: color 0.3s;">Home</a></p>
+                <p style="margin-bottom: 0.5rem; opacity: 0.8;"><a href="#products" style="color: white; text-decoration: none; transition: color 0.3s;">Products</a></p>
+                <p style="margin-bottom: 0.5rem; opacity: 0.8;"><a href="#why" style="color: white; text-decoration: none; transition: color 0.3s;">Why Us</a></p>
+                <p style="margin-bottom: 0.5rem; opacity: 0.8;"><a href="#contact" style="color: white; text-decoration: none; transition: color 0.3s;">Contact</a></p>
+            </div>
+            <div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem; color: var(--secondary);">Contact Info</h3>
+                <p style="margin-bottom: 0.5rem; opacity: 0.8;">📞 +91 90134 63956</p>
+                <p style="margin-bottom: 0.5rem; opacity: 0.8;">📧 anuanushkasharma3613@gmail.com</p>
+                <p style="margin-bottom: 0.5rem; opacity: 0.8;">📍 India</p>
+            </div>
         </div>
-        <p style="font-size: 0.9rem; color: #ccc;">&copy; 2023 Crochetiya. All rights reserved.</p>
+        <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #444; opacity: 0.7;">
+            <p>&copy; 2023 Crochetiya क्रोशिया. All rights reserved. Made with ❤️ for handmade creations.</p>
+        </div>
     </footer>
+
+    <!-- WhatsApp Float Button -->
+    <div style="position: fixed; bottom: 20px; left: 20px; z-index: 1000;">
+        <a href="https://wa.me/919013463956?text=Hi%20Crochetiya!%20I'm%20interested%20in%20your%20handmade%20wool%20products" target="_blank" style="display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: #25D366; border-radius: 50%; color: white; font-size: 2rem; text-decoration: none; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); transition: all 0.3s; animation: pulse 2s ease-in-out infinite;">
+            💬
+        </a>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 4000; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 3rem 2rem; border-radius: 20px; text-align: center; max-width: 400px; width: 90%; animation: modalAppear 0.3s ease;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1rem; color: var(--primary);">Success!</h3>
+            <p style="color: #666; line-height: 1.6; margin-bottom: 2rem;">Your message has been sent successfully. We'll get back to you soon!</p>
+            <button onclick="closeModal()" style="padding: 1rem 2rem; background: var(--gradient-1); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer;">Close</button>
+        </div>
+    </div>
 
     <script>
         // LOADING SCREEN - Shows for 1.2 seconds
@@ -1788,9 +2229,26 @@
                 return;
             }
             
+            const checkoutModal = document.getElementById('checkoutModal');
+            const orderSummary = document.getElementById('orderSummary');
+            
+            // Populate order summary
             const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const whatsappMessage = createWhatsAppMessage(cart, totalAmount);
-            window.open(`https://wa.me/919013463956?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+            orderSummary.innerHTML = `
+                <h3 style="margin-bottom: 1rem;">Order Summary</h3>
+                ${cart.map(item => `
+                    <div class="order-item">
+                        <span>${item.productName} (${item.size}) x${item.quantity}</span>
+                        <span>₹${item.price * item.quantity}</span>
+                    </div>
+                `).join('')}
+                <div class="order-total">
+                    <span>Total Amount:</span>
+                    <span>₹${totalAmount}</span>
+                </div>
+            `;
+            
+            checkoutModal.classList.add('active');
         }
 
         // Create WhatsApp Message
@@ -1892,6 +2350,156 @@
                     }
                 });
             });
+        });
+
+        // Additional functions for complete functionality
+        function renderHeroGallery() {
+            const heroGallery = document.getElementById('heroGallery');
+            if (!heroGallery) return;
+
+            const heroItems = [
+                { emoji: '🧶', title: 'Premium Wool' },
+                { emoji: '🌸', title: 'Beautiful Flowers' },
+                { emoji: '🧸', title: 'Cute Toys' },
+                { emoji: '👜', title: 'Stylish Bags' }
+            ];
+
+            heroGallery.innerHTML = heroItems.map(item => `
+                <div class="gallery-item" style="aspect-ratio: 1; border-radius: 25px; overflow: hidden; position: relative; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: var(--shadow); background: var(--gradient-1); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem; flex-direction: column;">
+                    <div style="font-size: 4rem; margin-bottom: 0.5rem;">${item.emoji}</div>
+                    <div style="font-size: 1rem; font-weight: 600;">${item.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderGallery() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            if (!galleryGrid) return;
+
+            const galleryItems = [
+                { emoji: '🌺', title: 'Flower Bouquet' },
+                { emoji: '🧸', title: 'Teddy Bear' },
+                { emoji: '👜', title: 'Tote Bag' },
+                { emoji: '🔑', title: 'Keychain' },
+                { emoji: '🌹', title: 'Rose Collection' },
+                { emoji: '🐻', title: 'Animal Friends' },
+                { emoji: '💐', title: 'Wedding Decor' },
+                { emoji: '🎁', title: 'Gift Sets' }
+            ];
+
+            galleryGrid.innerHTML = galleryItems.map(item => `
+                <div class="gallery-item">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">${item.emoji}</div>
+                    <div style="font-size: 1rem; font-weight: 600;">${item.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').classList.remove('active');
+        }
+
+        function placeOrder() {
+            const name = document.getElementById('customerName')?.value;
+            const phone = document.getElementById('customerPhone')?.value;
+            const address = document.getElementById('customerAddress')?.value;
+
+            if (!name || !phone || !address) {
+                showToast('Please fill all required fields! ⚠️');
+                return;
+            }
+
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let whatsappMessage = `🛒 New Order from Website!\n\n`;
+            whatsappMessage += `👤 Customer Details:\n`;
+            whatsappMessage += `Name: ${name}\n`;
+            whatsappMessage += `Phone: ${phone}\n`;
+            whatsappMessage += `Address: ${address}\n\n`;
+            whatsappMessage += `🛍️ Order Items:\n`;
+            cart.forEach(item => {
+                whatsappMessage += `• ${item.productName} (${item.size}) x${item.quantity} = ₹${item.price * item.quantity}\n`;
+            });
+            whatsappMessage += `\n💰 Total Amount: ₹${totalAmount}\n\n`;
+            whatsappMessage += `Please confirm this order and provide payment details. Thank you! 🙏`;
+
+            window.open(`https://wa.me/919013463956?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+            
+            // Clear cart and close modal
+            cart = [];
+            saveCart();
+            updateCartUI();
+            closeCheckoutModal();
+            toggleCart();
+            showToast('Order placed successfully! Check WhatsApp. 🎉');
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').style.display = 'none';
+        }
+
+        // Enhanced startCheckout function
+        function startCheckout() {
+            if (cart.length === 0) {
+                showToast('Your cart is empty! 🛒');
+                return;
+            }
+            
+            const checkoutModal = document.getElementById('checkoutModal');
+            const orderSummary = document.getElementById('orderSummary');
+            
+            // Populate order summary
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            orderSummary.innerHTML = `
+                <h3 style="margin-bottom: 1rem;">Order Summary</h3>
+                ${cart.map(item => `
+                    <div class="order-item">
+                        <span>${item.productName} (${item.size}) x${item.quantity}</span>
+                        <span>₹${item.price * item.quantity}</span>
+                    </div>
+                `).join('')}
+                <div class="order-total">
+                    <span>Total Amount:</span>
+                    <span>₹${totalAmount}</span>
+                </div>
+            `;
+            
+            checkoutModal.classList.add('active');
+        }
+
+        // Initialize additional content
+        document.addEventListener('DOMContentLoaded', function() {
+            // ...existing code...
+            renderHeroGallery();
+            renderGallery();
+            
+            // Contact form handler
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const data = {};
+                    formData.forEach((value, key) => {
+                        data[key] = value;
+                    });
+                    
+                    // Show success modal
+                    document.getElementById('successModal').style.display = 'flex';
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Optional: Send to WhatsApp
+                    const whatsappMessage = `New Inquiry from Website!\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || 'Not provided'}\nInterested in: ${data.product}\nMessage: ${data.message}`;
+                    const whatsappUrl = `https://wa.me/919013463956?text=${encodeURIComponent(whatsappMessage)}`;
+                    
+                    // Open WhatsApp in new tab after 2 seconds
+                    setTimeout(() => {
+                        window.open(whatsappUrl, '_blank');
+                    }, 2000);
+                });
+            }
         });
     </script>
 
