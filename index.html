@@ -632,7 +632,7 @@
             opacity: 1;
         }
 
-        /* Toast Animation Fix */
+        /* Toast Animation */
         .toast {
             position: fixed;
             top: 100px;
@@ -666,6 +666,17 @@
             to {
                 transform: translateX(100%);
                 opacity: 0;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
             }
         }
 
@@ -743,7 +754,7 @@
             border-color: var(--primary);
         }
 
-        /* Missing sections CSS */
+        /* About Section */
         .about {
             padding: 4rem 0;
             background: var(--white);
@@ -1059,17 +1070,6 @@
             }
         }
 
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
         /* Search suggestions */
         .search-suggestions {
             position: absolute;
@@ -1327,346 +1327,292 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
+    <div class="header">
         <div class="container">
-            <nav class="nav">
-                <a href="#" class="logo">🧶 Crochetiya</a>
-                
-                <ul class="nav-links">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#products" class="nav-link">Products</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-
+            <div class="nav">
+                <a href="#" class="logo">
+                    Crochetiya
+                </a>
+                <div class="nav-links">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#products" class="nav-link">Products</a>
+                    <a href="#testimonials" class="nav-link">Testimonials</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
                 <div class="nav-actions">
                     <div class="search-box">
-                        <input type="text" class="search-input" placeholder="Search products..." id="searchInput">
-                        <button class="search-btn" onclick="searchProducts()">🔍</button>
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search products...">
+                        <button class="search-btn">
+                            🔍
+                        </button>
                         <div class="search-suggestions" id="searchSuggestions"></div>
                     </div>
-                    
                     <button class="cart-btn" onclick="toggleCart()">
                         🛒 Cart
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
-                    
                     <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
                         <span></span>
                         <span></span>
                         <span></span>
                     </button>
                 </div>
-            </nav>
+            </div>
         </div>
-    </header>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
+    <div class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>Beautiful Handmade Crochet Products</h1>
-                    <p class="subtitle">Discover our collection of premium handcrafted crochet items. Each piece is made with love and attention to detail.</p>
+                    <h1>Handmade Crochet Products</h1>
+                    <p class="subtitle">Unique, premium quality, and made with love.</p>
                     <div class="cta-buttons">
-                        <a href="#products" class="btn btn-primary">🛍️ Shop Now</a>
+                        <a href="#products" class="btn btn-primary">Shop Now</a>
                         <a href="#about" class="btn btn-outline">Learn More</a>
                     </div>
                 </div>
                 <div class="hero-image">
-                    <div class="hero-card">
-                        <div class="category-icon">🔑</div>
-                        <h3>Keychains</h3>
-                        <p>Starting from ₹299</p>
-                    </div>
-                    <div class="hero-card">
-                        <div class="category-icon">🧸</div>
-                        <h3>Soft Toys</h3>
-                        <p>Starting from ₹699</p>
-                    </div>
-                    <div class="hero-card">
-                        <div class="category-icon">👜</div>
-                        <h3>Bags</h3>
-                        <p>Starting from ₹1299</p>
-                    </div>
-                    <div class="hero-card">
-                        <div class="category-icon">🌸</div>
-                        <h3>Flowers</h3>
-                        <p>Starting from ₹199</p>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0c7d67adce8?w=400&h=400&fit=crop&crop=center" alt="Crochet Product">
                     </div>
                 </div>
             </div>
-            <!-- Hero Gallery for larger screens -->
-            <div class="hero-gallery">
-                <img src="./assets/keychain.jpg" alt="Keychain" loading="lazy">
-                <img src="./assets/softtoy.jpg" alt="Soft Toy" loading="lazy">
-                <img src="./assets/bag.jpg" alt="Bag" loading="lazy">
+        </div>
+    </div>
+
+    <div class="hero-gallery">
+        <div class="container">
+            <h2 class="section-title">Our Gallery</h2>
+            <div class="gallery-grid">
+                <img src="https://images.unsplash.com/photo-1594736797933-d0c7d67adce8?w=400&h=400&fit=crop&crop=center" alt="Gallery Image">
+                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop&crop=center" alt="Gallery Image">
+                <img src="https://images.unsplash.com/photo-1565106430482-8f6e74349ca1?w=400&h=400&fit=crop&crop=center" alt="Gallery Image">
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Features Section -->
-    <section class="features">
+    <div class="features">
         <div class="container">
+            <h2 class="section-title">Why Choose Us?</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">🚚</div>
-                    <h3>Free Shipping</h3>
-                    <p>Free delivery on orders above ₹500</p>
+                    <div class="feature-icon">
+                        🧶
+                    </div>
+                    <h3 class="feature-title">Premium Quality</h3>
+                    <p class="feature-description">We use only the finest materials for our products.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">💰</div>
-                    <h3>Best Prices</h3>
-                    <p>Competitive pricing on all products</p>
+                    <div class="feature-icon">
+                        🌱
+                    </div>
+                    <h3 class="feature-title">Eco-Friendly</h3>
+                    <p class="feature-description">All our products are made with sustainable practices.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">⭐</div>
-                    <h3>Quality Guaranteed</h3>
-                    <p>100% handmade with premium materials</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Secure Payment</h3>
-                    <p>Safe and secure payment options</p>
+                    <div class="feature-icon">
+                        ❤️
+                    </div>
+                    <h3 class="feature-title">Handmade with Love</h3>
+                    <p class="feature-description">Each product is lovingly handcrafted by skilled artisans.</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Products Section -->
-    <section class="products" id="products">
+    <div class="products" id="products">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Products</h2>
-                <p class="section-subtitle">Explore our handcrafted collection</p>
-            </div>
-
-            <!-- Product Filters -->
+            <h2 class="section-title">Featured Products</h2>
             <div class="product-filters">
-                <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+                <button class="filter-btn active" onclick="filterProducts('all')">All</button>
                 <button class="filter-btn" onclick="filterProducts('keychain')">Keychains</button>
-                <button class="filter-btn" onclick="filterProducts('toy')">Soft Toys</button>
+                <button class="filter-btn" onclick="filterProducts('toy')">Toys</button>
                 <button class="filter-btn" onclick="filterProducts('bag')">Bags</button>
                 <button class="filter-btn" onclick="filterProducts('flower')">Flowers</button>
             </div>
-
             <div class="products-grid" id="productsGrid">
-                <!-- Products will be loaded here -->
-                <div class="products-loading">
-                    <div class="loading"></div>
-                    <span style="margin-left: 1rem;">Loading products...</span>
+                <!-- Product cards will be injected here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Absolutely love my new bag! The quality is amazing and it's so stylish."
+                    </div>
+                    <div class="testimonial-author">
+                        - Priya S.
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The cutest keychain ever! It adds a personal touch to my keys."
+                    </div>
+                    <div class="testimonial-author">
+                        - Aarav M.
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "These toys are a hit with my kids! Safe, soft, and so adorable."
+                    </div>
+                    <div class="testimonial-author">
+                        - Neha K.
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- About Section -->
-    <section class="about" id="about">
+    <div class="about" id="about">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
                     <h2>About Crochetiya</h2>
-                    <p>We are passionate artisans dedicated to creating beautiful, handmade crochet products. Each item is crafted with love, attention to detail, and premium materials.</p>
-                    <p>Our journey began with a simple love for crochet and has grown into a business that brings joy to customers across India. Every stitch tells a story of craftsmanship and care.</p>
-                    <div class="cta-buttons">
-                        <a href="#products" class="btn btn-primary">Shop Now</a>
-                        <a href="https://wa.me/919013463956" target="_blank" class="btn btn-outline">Contact Us</a>
-                    </div>
+                    <p>
+                        At Crochetiya, we believe in creating beautiful, sustainable, and high-quality crochet products that bring joy and warmth to your life. Our products are handcrafted with love by skilled artisans using the finest materials.
+                    </p>
+                    <p>
+                        We are committed to sustainable practices and use eco-friendly materials in all our products. By choosing Crochetiya, you are not only getting a unique and premium quality product but also supporting ethical and sustainable fashion.
+                    </p>
                 </div>
                 <div class="about-stats">
                     <div class="stat-card">
-                        <div class="stat-number">1000+</div>
+                        <div class="stat-number" data-number="1500">0</div>
+                        <div class="stat-label">Products Sold</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-number="300">0</div>
                         <div class="stat-label">Happy Customers</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">Product Designs</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">3</div>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Handmade</div>
+                        <div class="stat-number" data-number="50">0</div>
+                        <div class="stat-label">Unique Products</div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
+    <div class="newsletter" id="newsletter">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">What Our Customers Say</h2>
-                <p class="section-subtitle">Real reviews from happy customers</p>
-            </div>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">"Beautiful keychain! The quality is amazing and it arrived quickly. Will definitely order again!"</div>
-                    <div class="testimonial-author">Priya Sharma</div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">"My daughter loves her new soft toy. It's so well made and adorable. Great craftsmanship!"</div>
-                    <div class="testimonial-author">Rahul Kumar</div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">"The bag is perfect for daily use. Stylish and durable. Highly recommend!"</div>
-                    <div class="testimonial-author">Anita Patel</div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter Section -->
-    <section class="newsletter">
-        <div class="container">
-            <h3>Stay Updated</h3>
-            <p>Get notified about new products and special offers</p>
+            <h3>Subscribe to Our Newsletter</h3>
+            <p>Get the latest updates on new products and exclusive offers.</p>
             <form class="newsletter-form" id="newsletterForm">
                 <input type="email" class="newsletter-input" placeholder="Enter your email" required>
                 <button type="submit" class="newsletter-btn">Subscribe</button>
             </form>
         </div>
-    </section>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Learn more about our story and mission.</p>
+                    <a href="#about" class="btn btn-primary">Our Story</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#shipping">Shipping Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Pinterest</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2023 Crochetiya. All rights reserved.
+            </div>
+        </div>
+    </div>
 
     <!-- Cart Sidebar -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
-            <h3 class="cart-title">Shopping Cart</h3>
-            <button class="close-cart" onclick="toggleCart()">×</button>
+            <div class="cart-title">Shopping Cart</div>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
         </div>
         <div class="cart-items" id="cartItems">
-            <div style="text-align: center; padding: 2rem; color: var(--text);">
-                <div style="font-size: 3rem; margin-bottom: 1rem;">🛒</div>
-                <p>Your cart is empty</p>
-            </div>
+            <!-- Cart items will be injected here by JavaScript -->
         </div>
         <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total: </span>
-                <span id="cartTotal">₹0</span>
+            <div class="cart-total" id="cartTotal">
+                <!-- Cart total will be injected here by JavaScript -->
             </div>
-            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
-        </div>
-    </div>
-
-    <!-- Checkout Modal -->
-    <div class="modal" id="checkoutModal">
-        <div class="modal-content">
-            <h2 style="margin-bottom: 1.5rem;">Checkout</h2>
-            <form id="checkoutForm">
-                <div class="form-group">
-                    <label class="form-label">Full Name *</label>
-                    <input type="text" class="form-input" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Email *</label>
-                    <input type="email" class="form-input" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Phone *</label>
-                    <input type="tel" class="form-input" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Address *</label>
-                    <textarea class="form-input" name="address" rows="3" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">City *</label>
-                    <input type="text" class="form-input" name="city" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Pincode *</label>
-                    <input type="text" class="form-input" name="pincode" required>
-                </div>
-                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-                    <button type="button" class="btn btn-outline" onclick="closeCheckoutModal()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Place Order</button>
-                </div>
-            </form>
+            <button class="checkout-btn" onclick="checkout()">
+                Proceed to Checkout
+            </button>
         </div>
     </div>
 
     <!-- Quick View Modal -->
     <div class="quick-view-modal" id="quickViewModal">
         <div class="quick-view-content">
-            <div class="quick-view-image">
-                <img id="quickViewImage" src="" alt="">
+            <div class="quick-view-image" id="quickViewImage">
+                <!-- Quick view image will be injected here by JavaScript -->
             </div>
             <div class="quick-view-info">
-                <h2 id="quickViewName"></h2>
-                <p id="quickViewDescription"></p>
-                <div class="product-price">
-                    <span class="price-current" id="quickViewPrice"></span>
-                    <span class="price-original" id="quickViewOriginalPrice"></span>
-                </div>
-                <div class="product-rating">
-                    <span class="stars" id="quickViewRating"></span>
-                </div>
-                <div class="cta-buttons" style="margin-top: 2rem;">
-                    <button class="btn btn-primary" id="quickViewAddToCart">🛒 Add to Cart</button>
-                    <button class="btn btn-outline" onclick="closeQuickView()">Close</button>
-                </div>
+                <h3 class="product-name" id="quickViewName"></h3>
+                <p class="product-description" id="quickViewDescription"></p>
+                <div class="product-price" id="quickViewPrice"></div>
+                <div class="product-rating" id="quickViewRating"></div>
+                <button class="btn btn-primary" id="quickViewAddToCart">
+                    Add to Cart
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer" id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Crochetiya</h3>
-                    <p>Premium handmade crochet products crafted with love and attention to detail.</p>
-                    <p>📧 anuanushkasharma3613@gmail.com</p>
-                    <p>📱 +91 90134 63956</p>
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <h2>Checkout</h2>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" id="name" class="form-input" placeholder="John Doe" required>
                 </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#products">Products</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="you@example.com" required>
                 </div>
-                <div class="footer-section">
-                    <h3>Categories</h3>
-                    <ul>
-                        <li><a href="#" onclick="filterProducts('keychain')">Keychains</a></li>
-                        <li><a href="#" onclick="filterProducts('toy')">Soft Toys</a></li>
-                        <li><a href="#" onclick="filterProducts('bag')">Bags</a></li>
-                        <li><a href="#" onclick="filterProducts('flower')">Flowers</a></li>
-                    </ul>
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" id="phone" class="form-input" placeholder="+91 98765 43210" required>
                 </div>
-                <div class="footer-section">
-                    <h3>Connect With Us</h3>
-                    <ul>
-                        <li><a href="https://wa.me/919013463956" target="_blank">💬 WhatsApp</a></li>
-                        <li><a href="https://instagram.com/crochetiya" target="_blank">📸 Instagram</a></li>
-                        <li><a href="mailto:anuanushkasharma3613@gmail.com">📧 Email</a></li>
-                    </ul>
+                <div class="form-group">
+                    <label for="address" class="form-label">Shipping Address</label>
+                    <input type="text" id="address" class="form-input" placeholder="123 Main St, City" required>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Crochetiya. All rights reserved. Made with ❤️</p>
-            </div>
+                <div class="form-group">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" id="city" class="form-input" placeholder="Your City" required>
+                </div>
+                <div class="form-group">
+                    <label for="pincode" class="form-label">Pincode</label>
+                    <input type="text" id="pincode" class="form-input" placeholder="123456" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Place Order
+                </button>
+            </form>
         </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
-
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/919013463956?text=Hi%20Crochetiya!%20I'm%20interested%20in%20your%20handmade%20products" target="_blank" class="whatsapp-float">
-        <span style="color: white; font-size: 1.5rem;">💬</span>
-    </a>
+    </div>
 
     <script>
         // Complete Product Data with Unique Working Images
